@@ -1,0 +1,339 @@
+cmake
+------------------------------------------
+CMake is used to control the software compilation process using simple 
+platform and compiler independent configuration files. CMake generates 
+native makefiles and workspaces that can be used in the compiler 
+environment of your choice. CMake is quite sophisticated: it is possible 
+to support complex environments requiring system configuration, 
+pre-processor generation, code generation, and template instantiation.
+
+Runtime requirements:
+  cygwin-1.5.24-2
+  libcurl4-7.16.3-1
+  libexpat0-1.95.8-1
+  libncurses8-5.5-3
+  libxmlrpc3-1.06.18-1
+  zlib-1.2.3-2
+
+Build requirements:
+(besides corresponding -devel packages)
+  cygwin-1.5.24-2
+  binutils-20060817-1
+  cygport-0.3.6-1
+  gcc-core-3.4.4-3
+  gcc-g++-3.4.4-3
+  make-3.81-1
+
+Canonical website:
+  http://www.cmake.org/
+
+Canonical download:
+  http://www.cmake.org/files/v2.4/
+
+-------------------------------------------
+
+Build instructions:
+  unpack cmake-2.4.7-X-src.tar.bz2
+    if you use setup to install this src package, it will be
+	 unpacked under /usr/src automatically
+  cd /usr/src
+  cygport ./cmake-2.4.7-X.cygport all
+
+This will create:
+  /usr/src/cmake-2.4.7-X-src.tar.bz2
+  /usr/src/cmake-2.4.7-X.tar.bz2
+
+-------------------------------------------
+
+Files included in the binary package:
+
+  /usr/bin/ccmake.exe
+  /usr/bin/cmake.exe
+  /usr/bin/cpack.exe
+  /usr/bin/ctest.exe
+  /usr/share/cmake-2.4.7/Modules/AddFileDependencies.cmake
+  /usr/share/cmake-2.4.7/Modules/CMake.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeBackwardCompatibilityC.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeBackwardCompatibilityCXX.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeBorlandFindMake.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeBuildSettings.cmake.in
+  /usr/share/cmake-2.4.7/Modules/CMakeCCompiler.cmake.in
+  /usr/share/cmake-2.4.7/Modules/CMakeCInformation.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeCXXCompiler.cmake.in
+  /usr/share/cmake-2.4.7/Modules/CMakeCXXInformation.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeCommonLanguageInclude.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeConfigurableFile.in
+  /usr/share/cmake-2.4.7/Modules/CMakeDependentOption.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeDetermineCCompiler.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeDetermineCXXCompiler.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeDetermineFortranCompiler.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeDetermineJavaCompiler.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeDetermineRCCompiler.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeDetermineSystem.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeExportBuildSettings.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeFindFrameworks.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeFindWMake.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeFindXCode.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeFortranCompiler.cmake.in
+  /usr/share/cmake-2.4.7/Modules/CMakeFortranInformation.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeGenericSystem.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeImportBuildSettings.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeJavaCompiler.cmake.in
+  /usr/share/cmake-2.4.7/Modules/CMakeJavaInformation.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeMSYSFindMake.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeMinGWFindMake.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeNMakeFindMake.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakePrintSystemInformation.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeRCCompiler.cmake.in
+  /usr/share/cmake-2.4.7/Modules/CMakeRCInformation.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeSystem.cmake.in
+  /usr/share/cmake-2.4.7/Modules/CMakeSystemSpecificInformation.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeTestCCompiler.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeTestCXXCompiler.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeTestForFreeVC.cxx
+  /usr/share/cmake-2.4.7/Modules/CMakeTestFortranCompiler.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeTestGNU.c
+  /usr/share/cmake-2.4.7/Modules/CMakeTestJavaCompiler.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeTestNMakeCLVersion.c
+  /usr/share/cmake-2.4.7/Modules/CMakeTestRCCompiler.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeUnixFindMake.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeVCManifest.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeVCManifestExe.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeVS6BackwardCompatibility.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeVS6FindMake.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeVS71FindMake.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeVS7BackwardCompatibility.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeVS7FindMake.cmake
+  /usr/share/cmake-2.4.7/Modules/CMakeVS8FindMake.cmake
+  /usr/share/cmake-2.4.7/Modules/CPack.Description.plist.in
+  /usr/share/cmake-2.4.7/Modules/CPack.Info.plist.in
+  /usr/share/cmake-2.4.7/Modules/CPack.STGZ_Header.sh.in
+  /usr/share/cmake-2.4.7/Modules/CPack.cmake
+  /usr/share/cmake-2.4.7/Modules/CTest.cmake
+  /usr/share/cmake-2.4.7/Modules/CTestTargets.cmake
+  /usr/share/cmake-2.4.7/Modules/CheckCCompilerFlag.cmake
+  /usr/share/cmake-2.4.7/Modules/CheckCSourceCompiles.cmake
+  /usr/share/cmake-2.4.7/Modules/CheckCSourceRuns.cmake
+  /usr/share/cmake-2.4.7/Modules/CheckCXXCompilerFlag.cmake
+  /usr/share/cmake-2.4.7/Modules/CheckCXXSourceCompiles.cmake
+  /usr/share/cmake-2.4.7/Modules/CheckCXXSourceRuns.cmake
+  /usr/share/cmake-2.4.7/Modules/CheckForPthreads.c
+  /usr/share/cmake-2.4.7/Modules/CheckFunctionExists.c
+  /usr/share/cmake-2.4.7/Modules/CheckFunctionExists.cmake
+  /usr/share/cmake-2.4.7/Modules/CheckIncludeFile.c.in
+  /usr/share/cmake-2.4.7/Modules/CheckIncludeFile.cmake
+  /usr/share/cmake-2.4.7/Modules/CheckIncludeFile.cxx.in
+  /usr/share/cmake-2.4.7/Modules/CheckIncludeFileCXX.cmake
+  /usr/share/cmake-2.4.7/Modules/CheckIncludeFiles.cmake
+  /usr/share/cmake-2.4.7/Modules/CheckLibraryExists.cmake
+  /usr/share/cmake-2.4.7/Modules/CheckLibraryExists.lists.in
+  /usr/share/cmake-2.4.7/Modules/CheckSizeOf.cmake
+  /usr/share/cmake-2.4.7/Modules/CheckSymbolExists.cmake
+  /usr/share/cmake-2.4.7/Modules/CheckTypeSize.c.in
+  /usr/share/cmake-2.4.7/Modules/CheckTypeSize.cmake
+  /usr/share/cmake-2.4.7/Modules/CheckVariableExists.c
+  /usr/share/cmake-2.4.7/Modules/CheckVariableExists.cmake
+  /usr/share/cmake-2.4.7/Modules/Dart.cmake
+  /usr/share/cmake-2.4.7/Modules/DartConfiguration.tcl.in
+  /usr/share/cmake-2.4.7/Modules/Documentation.cmake
+  /usr/share/cmake-2.4.7/Modules/DummyCXXFile.cxx
+  /usr/share/cmake-2.4.7/Modules/FindASPELL.cmake
+  /usr/share/cmake-2.4.7/Modules/FindAVIFile.cmake
+  /usr/share/cmake-2.4.7/Modules/FindBZip2.cmake
+  /usr/share/cmake-2.4.7/Modules/FindBoost.cmake
+  /usr/share/cmake-2.4.7/Modules/FindCABLE.cmake
+  /usr/share/cmake-2.4.7/Modules/FindCURL.cmake
+  /usr/share/cmake-2.4.7/Modules/FindCurses.cmake
+  /usr/share/cmake-2.4.7/Modules/FindCygwin.cmake
+  /usr/share/cmake-2.4.7/Modules/FindDCMTK.cmake
+  /usr/share/cmake-2.4.7/Modules/FindDart.cmake
+  /usr/share/cmake-2.4.7/Modules/FindDoxygen.cmake
+  /usr/share/cmake-2.4.7/Modules/FindEXPAT.cmake
+  /usr/share/cmake-2.4.7/Modules/FindFLTK.cmake
+  /usr/share/cmake-2.4.7/Modules/FindGCCXML.cmake
+  /usr/share/cmake-2.4.7/Modules/FindGLU.cmake
+  /usr/share/cmake-2.4.7/Modules/FindGLUT.cmake
+  /usr/share/cmake-2.4.7/Modules/FindGTK.cmake
+  /usr/share/cmake-2.4.7/Modules/FindGnuplot.cmake
+  /usr/share/cmake-2.4.7/Modules/FindHSPELL.cmake
+  /usr/share/cmake-2.4.7/Modules/FindHTMLHelp.cmake
+  /usr/share/cmake-2.4.7/Modules/FindITK.cmake
+  /usr/share/cmake-2.4.7/Modules/FindImageMagick.cmake
+  /usr/share/cmake-2.4.7/Modules/FindJNI.cmake
+  /usr/share/cmake-2.4.7/Modules/FindJPEG.cmake
+  /usr/share/cmake-2.4.7/Modules/FindJasper.cmake
+  /usr/share/cmake-2.4.7/Modules/FindJava.cmake
+  /usr/share/cmake-2.4.7/Modules/FindKDE.cmake
+  /usr/share/cmake-2.4.7/Modules/FindKDE3.cmake
+  /usr/share/cmake-2.4.7/Modules/FindKDE4.cmake
+  /usr/share/cmake-2.4.7/Modules/FindLATEX.cmake
+  /usr/share/cmake-2.4.7/Modules/FindLibXml2.cmake
+  /usr/share/cmake-2.4.7/Modules/FindLibXslt.cmake
+  /usr/share/cmake-2.4.7/Modules/FindMFC.cmake
+  /usr/share/cmake-2.4.7/Modules/FindMPEG.cmake
+  /usr/share/cmake-2.4.7/Modules/FindMPEG2.cmake
+  /usr/share/cmake-2.4.7/Modules/FindMPI.cmake
+  /usr/share/cmake-2.4.7/Modules/FindMatlab.cmake
+  /usr/share/cmake-2.4.7/Modules/FindMotif.cmake
+  /usr/share/cmake-2.4.7/Modules/FindOpenAL.cmake
+  /usr/share/cmake-2.4.7/Modules/FindOpenGL.cmake
+  /usr/share/cmake-2.4.7/Modules/FindOpenSSL.cmake
+  /usr/share/cmake-2.4.7/Modules/FindPHP4.cmake
+  /usr/share/cmake-2.4.7/Modules/FindPNG.cmake
+  /usr/share/cmake-2.4.7/Modules/FindPerl.cmake
+  /usr/share/cmake-2.4.7/Modules/FindPerlLibs.cmake
+  /usr/share/cmake-2.4.7/Modules/FindPhysFS.cmake
+  /usr/share/cmake-2.4.7/Modules/FindPike.cmake
+  /usr/share/cmake-2.4.7/Modules/FindPkgConfig.cmake
+  /usr/share/cmake-2.4.7/Modules/FindPythonInterp.cmake
+  /usr/share/cmake-2.4.7/Modules/FindPythonLibs.cmake
+  /usr/share/cmake-2.4.7/Modules/FindQt.cmake
+  /usr/share/cmake-2.4.7/Modules/FindQt3.cmake
+  /usr/share/cmake-2.4.7/Modules/FindQt4.cmake
+  /usr/share/cmake-2.4.7/Modules/FindRuby.cmake
+  /usr/share/cmake-2.4.7/Modules/FindSDL.cmake
+  /usr/share/cmake-2.4.7/Modules/FindSDL_image.cmake
+  /usr/share/cmake-2.4.7/Modules/FindSDL_mixer.cmake
+  /usr/share/cmake-2.4.7/Modules/FindSDL_net.cmake
+  /usr/share/cmake-2.4.7/Modules/FindSDL_sound.cmake
+  /usr/share/cmake-2.4.7/Modules/FindSDL_ttf.cmake
+  /usr/share/cmake-2.4.7/Modules/FindSWIG.cmake
+  /usr/share/cmake-2.4.7/Modules/FindSelfPackers.cmake
+  /usr/share/cmake-2.4.7/Modules/FindSubversion.cmake
+  /usr/share/cmake-2.4.7/Modules/FindTCL.cmake
+  /usr/share/cmake-2.4.7/Modules/FindTIFF.cmake
+  /usr/share/cmake-2.4.7/Modules/FindTclsh.cmake
+  /usr/share/cmake-2.4.7/Modules/FindThreads.cmake
+  /usr/share/cmake-2.4.7/Modules/FindUnixCommands.cmake
+  /usr/share/cmake-2.4.7/Modules/FindVTK.cmake
+  /usr/share/cmake-2.4.7/Modules/FindWget.cmake
+  /usr/share/cmake-2.4.7/Modules/FindWish.cmake
+  /usr/share/cmake-2.4.7/Modules/FindX11.cmake
+  /usr/share/cmake-2.4.7/Modules/FindXMLRPC.cmake
+  /usr/share/cmake-2.4.7/Modules/FindZLIB.cmake
+  /usr/share/cmake-2.4.7/Modules/FindwxWidgets.cmake
+  /usr/share/cmake-2.4.7/Modules/FindwxWindows.cmake
+  /usr/share/cmake-2.4.7/Modules/InstallRequiredSystemLibraries.cmake
+  /usr/share/cmake-2.4.7/Modules/KDE3Macros.cmake
+  /usr/share/cmake-2.4.7/Modules/MacOSXBundleInfo.plist.in
+  /usr/share/cmake-2.4.7/Modules/MacroAddFileDependencies.cmake
+  /usr/share/cmake-2.4.7/Modules/NSIS.InstallOptions.ini.in
+  /usr/share/cmake-2.4.7/Modules/NSIS.template.in
+  /usr/share/cmake-2.4.7/Modules/Platform/AIX.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/BSDOS.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/CYGWIN-g77.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/CYGWIN.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/Darwin-xlc.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/Darwin.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/FreeBSD.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/HP-UX.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/IRIX.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/IRIX64.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/Linux-como.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/Linux-icpc.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/Linux-ifort.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/Linux.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/MP-RAS.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/NetBSD.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/OSF1.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/OpenBSD.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/QNX.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/RISCos.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/SCO_SV.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/SINIX.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/SunOS.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/Tru64.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/ULTRIX.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/UNIX_SV.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/UnixPaths.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/UnixWare.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/Windows-bcc32.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/Windows-cl.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/Windows-cl.cmake.in
+  /usr/share/cmake-2.4.7/Modules/Platform/Windows-g++.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/Windows-g77.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/Windows-gcc.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/Windows-icl.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/Windows-ifort.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/Windows-wcl386.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/Windows.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/WindowsPaths.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/Xenix.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/g77.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/gcc.cmake
+  /usr/share/cmake-2.4.7/Modules/Platform/kFreeBSD.cmake
+  /usr/share/cmake-2.4.7/Modules/TestBigEndian.c
+  /usr/share/cmake-2.4.7/Modules/TestBigEndian.cmake
+  /usr/share/cmake-2.4.7/Modules/TestCXXAcceptsFlag.cmake
+  /usr/share/cmake-2.4.7/Modules/TestForANSIForScope.cmake
+  /usr/share/cmake-2.4.7/Modules/TestForANSIStreamHeaders.cmake
+  /usr/share/cmake-2.4.7/Modules/TestForANSIStreamHeaders.cxx
+  /usr/share/cmake-2.4.7/Modules/TestForAnsiForScope.cxx
+  /usr/share/cmake-2.4.7/Modules/TestForSSTREAM.cmake
+  /usr/share/cmake-2.4.7/Modules/TestForSSTREAM.cxx
+  /usr/share/cmake-2.4.7/Modules/TestForSTDNamespace.cmake
+  /usr/share/cmake-2.4.7/Modules/TestForSTDNamespace.cxx
+  /usr/share/cmake-2.4.7/Modules/UseEcos.cmake
+  /usr/share/cmake-2.4.7/Modules/UsePkgConfig.cmake
+  /usr/share/cmake-2.4.7/Modules/UseQt4.cmake
+  /usr/share/cmake-2.4.7/Modules/UseSWIG.cmake
+  /usr/share/cmake-2.4.7/Modules/UseVTK40.cmake
+  /usr/share/cmake-2.4.7/Modules/UseVTKBuildSettings40.cmake
+  /usr/share/cmake-2.4.7/Modules/UseVTKConfig40.cmake
+  /usr/share/cmake-2.4.7/Modules/Use_wxWindows.cmake
+  /usr/share/cmake-2.4.7/Modules/UsewxWidgets.cmake
+  /usr/share/cmake-2.4.7/Modules/VTKCompatibility.cmake
+  /usr/share/cmake-2.4.7/Modules/kde3init_dummy.cpp.in
+  /usr/share/cmake-2.4.7/Modules/kde3uic.cmake
+  /usr/share/cmake-2.4.7/Modules/readme.txt
+  /usr/share/cmake-2.4.7/Templates/CMakeLists.txt
+  /usr/share/cmake-2.4.7/Templates/CMakeVisualStudio6Configurations.cmake
+  /usr/share/cmake-2.4.7/Templates/CMakeWindowsSystemConfig.cmake
+  /usr/share/cmake-2.4.7/Templates/CPack.GenericDescription.txt
+  /usr/share/cmake-2.4.7/Templates/CPack.GenericLicense.txt
+  /usr/share/cmake-2.4.7/Templates/CPack.GenericWelcome.txt
+  /usr/share/cmake-2.4.7/Templates/CPackConfig.cmake.in
+  /usr/share/cmake-2.4.7/Templates/CTestScript.cmake.in
+  /usr/share/cmake-2.4.7/Templates/DLLFooter.dsptemplate
+  /usr/share/cmake-2.4.7/Templates/DLLHeader.dsptemplate
+  /usr/share/cmake-2.4.7/Templates/EXEFooter.dsptemplate
+  /usr/share/cmake-2.4.7/Templates/EXEHeader.dsptemplate
+  /usr/share/cmake-2.4.7/Templates/EXEWinHeader.dsptemplate
+  /usr/share/cmake-2.4.7/Templates/TestDriver.cxx.in
+  /usr/share/cmake-2.4.7/Templates/UtilityFooter.dsptemplate
+  /usr/share/cmake-2.4.7/Templates/UtilityHeader.dsptemplate
+  /usr/share/cmake-2.4.7/Templates/staticLibFooter.dsptemplate
+  /usr/share/cmake-2.4.7/Templates/staticLibHeader.dsptemplate
+  /usr/share/cmake-2.4.7/include/cmCPluginAPI.h
+  /usr/share/doc/Cygwin/cmake-2.4.7-1.README
+  /usr/share/doc/Cygwin/cmake-2.4.7.README
+  /usr/share/doc/cmake-2.4.7/ChangeLog.txt
+  /usr/share/doc/cmake-2.4.7/Copyright.txt
+  /usr/share/doc/cmake-2.4.7/README.txt
+  /usr/share/doc/cmake-2.4.7/ccmake.html
+  /usr/share/doc/cmake-2.4.7/ccmake.txt
+  /usr/share/doc/cmake-2.4.7/cmake.html
+  /usr/share/doc/cmake-2.4.7/cmake.txt
+  /usr/share/doc/cmake-2.4.7/ctest.html
+  /usr/share/doc/cmake-2.4.7/ctest.txt
+  /usr/share/man/man1/ccmake.1.gz
+  /usr/share/man/man1/cmake.1.gz
+  /usr/share/man/man1/ctest.1.gz
+  /usr/share/vim/vimfiles/ftdetect/cmake.vim
+  /usr/share/vim/vimfiles/indent/cmake-indent.vim
+  /usr/share/vim/vimfiles/syntax/cmake-syntax.vim
+
+------------------
+
+Port Notes:
+
+----- version 2.4.7-3 -----
+Patched the following issues:
+* Fixed formatting of KDE3 module .la files;
+* Shared library installation on Cygwin;
+* Module naming on Cygwin.
+* Included Gentoo patches for detection of KDE4 and SWIG.
+
+
+Cygwin port maintained by:
+http://cygwinports.dotsrc.org/
