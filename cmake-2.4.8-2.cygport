@@ -1,0 +1,36 @@
+DESCRIPTION="Cross-platform makefile generation system"
+HOMEPAGE="http://www.cmake.org/"
+SRC_URI="
+	http://www.cmake.org/files/v${PV_MAJ_MIN}/${P}.tar.gz
+	mirror://portage/dev-util/${PN}/files/FindSWIG.cmake
+	mirror://portage/dev-util/${PN}/files/${PN}.vim
+"
+
+src_compile() {
+	cd ${B}
+	${S}/bootstrap \
+		--prefix=/usr \
+		--datadir=/share/${PN} \
+		--docdir=/share/doc/${PN} \
+		--mandir=/share/man \
+		--system-libs \
+		 || "bootstrap failed"
+	cygmake
+}
+
+src_install() {
+	cd ${B}
+	cyginstall
+
+	insinto /usr/share/${P}/Modules
+	doins ${S}/FindSWIG.cmake
+
+	insinto /usr/share/vim/vimfiles/syntax
+	doins ${S}/Docs/cmake-syntax.vim
+
+	insinto /usr/share/vim/vimfiles/indent
+	doins ${S}/Docs/cmake-indent.vim
+
+	insinto /usr/share/vim/vimfiles/ftdetect
+	doins ${S}/${PN}.vim
+}
