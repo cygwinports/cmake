@@ -1,0 +1,166 @@
+--- origsrc/cmake-2.4.8/Modules/Platform/CYGWIN.cmake	2008-01-21 12:59:51.000000000 -0600
++++ src/cmake-2.4.8/Modules/Platform/CYGWIN.cmake	2008-07-29 00:40:19.937500000 -0500
+@@ -1,25 +1,21 @@
+-SET(CMAKE_SHARED_LIBRARY_CREATE_C_FLAGS "-shared -Wl,--export-all-symbols -Wl,--enable-auto-import")
++SET(CMAKE_SHARED_LIBRARY_CREATE_C_FLAGS "-shared -Wl,--export-all-symbols -Wl,--enable-auto-import -Wl,--enable-auto-image-base")
+ SET(CMAKE_SHARED_MODULE_CREATE_C_FLAGS ${CMAKE_SHARED_LIBRARY_CREATE_C_FLAGS})
+-SET(CMAKE_DL_LIBS "-lgdi32" )
++SET(CMAKE_DL_LIBS "" )
+ SET(CMAKE_SHARED_LIBRARY_PREFIX "cyg")
+ SET(CMAKE_SHARED_LIBRARY_SUFFIX ".dll")
+-SET(CMAKE_SHARED_MODULE_PREFIX "lib")
++SET(CMAKE_SHARED_MODULE_PREFIX "cyg")
+ SET(CMAKE_SHARED_MODULE_SUFFIX ".dll")
+ SET(CMAKE_IMPORT_LIBRARY_PREFIX "lib")
+ SET(CMAKE_IMPORT_LIBRARY_SUFFIX ".dll.a")
+ # no pic for gcc on cygwin
+-SET(CMAKE_SHARED_LIBRARY_C_FLAGS "")
+-SET(CMAKE_SHARED_LIBRARY_CXX_FLAGS "")
++SET(CMAKE_SHARED_LIBRARY_C_FLAGS "-DDLL_EXPORT")
++SET(CMAKE_SHARED_LIBRARY_CXX_FLAGS "-DDLL_EXPORT")
+ SET(CMAKE_EXECUTABLE_SUFFIX ".exe")          # .exe
+-SET(CMAKE_CREATE_WIN32_EXE  "-mwindows")
+ # Modules have a different default prefix that shared libs.
+ SET(CMAKE_MODULE_EXISTS 1)
+ 
+-SET(CMAKE_FIND_LIBRARY_PREFIXES "cyg" "lib")
+-SET(CMAKE_FIND_LIBRARY_SUFFIXES ".dll" ".dll.a" ".a")
+-
+-SET(CMAKE_GNULD_IMAGE_VERSION
+-  "-Wl,--major-image-version,<TARGET_VERSION_MAJOR>,--minor-image-version,<TARGET_VERSION_MINOR>")
++SET(CMAKE_FIND_LIBRARY_PREFIXES "lib")
++SET(CMAKE_FIND_LIBRARY_SUFFIXES ".dll.a" ".a")
+ 
+ SET(CMAKE_C_CREATE_SHARED_MODULE
+   "<CMAKE_C_COMPILER> <LANGUAGE_COMPILE_FLAGS> <CMAKE_SHARED_MODULE_C_FLAGS> <LINK_FLAGS> <CMAKE_SHARED_MODULE_CREATE_C_FLAGS> -o <TARGET> ${CMAKE_GNULD_IMAGE_VERSION} <OBJECTS> <LINK_LIBRARIES>")
+--- origsrc/cmake-2.4.8/Source/CTest/Curl/if2ip.c	2008-01-21 12:59:54.000000000 -0600
++++ src/cmake-2.4.8/Source/CTest/Curl/if2ip.c	2008-07-29 00:33:08.125000000 -0500
+@@ -31,7 +31,7 @@
+ #include <unistd.h>
+ #endif
+ 
+-#if !defined(WIN32) && !defined(__BEOS__) && !defined(__CYGWIN32__) && \
++#if !defined(WIN32) && !defined(__BEOS__) && \
+     !defined(__riscos__) && !defined(__INTERIX) && !defined(NETWARE)
+ 
+ #ifdef HAVE_SYS_SOCKET_H
+--- origsrc/cmake-2.4.8/Source/CTest/Curl/if2ip.h	2008-01-21 12:59:54.000000000 -0600
++++ src/cmake-2.4.8/Source/CTest/Curl/if2ip.h	2008-07-29 00:33:19.562500000 -0500
+@@ -24,7 +24,7 @@
+  ***************************************************************************/
+ #include "setup.h"
+ 
+-#if !defined(WIN32) && !defined(__BEOS__) && !defined(__CYGWIN32__) && \
++#if !defined(WIN32) && !defined(__BEOS__) && \
+     !defined(__riscos__) && !defined(__INTERIX)
+ extern char *Curl_if2ip(const char *interface, char *buf, int buf_size);
+ #else
+--- origsrc/cmake-2.4.8/Source/WXDialog/bin/FindwxW.cmake	2008-01-21 12:59:55.000000000 -0600
++++ src/cmake-2.4.8/Source/WXDialog/bin/FindwxW.cmake	2008-07-29 00:38:37.421875000 -0500
+@@ -247,10 +247,10 @@
+     #
+     # Find XWindows
+     #
+-    IF( NOT CYGWIN OR MINGW )
++    IF( NOT MINGW )
+         INCLUDE( ${CMAKE_ROOT}/Modules/FindX11.cmake )
+         SET( WXWIDGETS_INCLUDE_DIR ${WXWIDGETS_INCLUDE_DIR}  ${X11_INCLUDE_DIR} )
+-    ENDIF( NOT CYGWIN OR MINGW )
++    ENDIF( NOT MINGW )
+ ENDIF( WIN32_STYLE_FIND )
+ 
+ #
+@@ -384,9 +384,9 @@
+ #
+ SET( WXWIDGETS_RC ${WXWIDGETS_INSTALL_PATH}/include/wx/msw/wx.rc )
+ IF( NOT WIN32_STYLE_FIND )
+-    IF( NOT CYGWIN OR MINGW )
++    IF( NOT MINGW )
+         SET( WXWIDGETS_RC "" )
+-    ENDIF( NOT CYGWIN OR MINGW )
++    ENDIF( NOT MINGW )
+ ENDIF( NOT WIN32_STYLE_FIND )
+ 
+ #
+@@ -397,10 +397,6 @@
+ 
+ IF(WIN32_STYLE_FIND)
+     SET( WXWIDGETS_DEFINITIONS ${WXWIDGETS_DEFINITIONS} -DWIN32 -D__WXMSW__  )
+-ELSE(WIN32_STYLE_FIND)
+-    IF( CYGWIN )
+-        SET( WXWIDGETS_DEFINITIONS ${WXWIDGETS_DEFINITIONS} -D__GNUWIN32__  -O2 -D_WIN32_IE=0x400 -MMD -Wall  )
+-    ENDIF( CYGWIN )
+ ENDIF(WIN32_STYLE_FIND)
+ 
+ IF( WXWIDGETS_USE_SHARED )
+--- origsrc/cmake-2.4.8/Source/cmCacheManager.cxx	2008-01-21 12:59:52.000000000 -0600
++++ src/cmake-2.4.8/Source/cmCacheManager.cxx	2008-07-29 00:27:37.218750000 -0500
+@@ -26,7 +26,7 @@
+ 
+ #include <cmsys/RegularExpression.hxx>
+ 
+-#if defined(_WIN32) || defined(__CYGWIN__)
++#if defined(_WIN32)
+ # include <windows.h>
+ #endif // _WIN32
+ 
+--- origsrc/cmake-2.4.8/Source/cmMakefile.cxx	2008-01-21 12:59:53.000000000 -0600
++++ src/cmake-2.4.8/Source/cmMakefile.cxx	2008-07-29 00:30:59.968750000 -0500
+@@ -1866,14 +1866,12 @@
+  */
+ void cmMakefile::AddDefaultDefinitions()
+ {
+-#if defined(_WIN32) || defined(__CYGWIN__)
++#if defined(_WIN32)
+   this->AddDefinition("WIN32", "1");
+ #else
+   this->AddDefinition("UNIX", "1");
+ #endif
+-  // Cygwin is more like unix so enable the unix commands
+ #if defined(__CYGWIN__)
+-  this->AddDefinition("UNIX", "1");
+   this->AddDefinition("CYGWIN", "1");
+ #endif
+ #if defined(__APPLE__)
+--- origsrc/cmake-2.4.8/Source/cmTarget.cxx	2008-01-21 12:59:53.000000000 -0600
++++ src/cmake-2.4.8/Source/cmTarget.cxx	2008-07-15 15:59:03.703125000 -0500
+@@ -1341,8 +1341,13 @@
+     if(type == cmTarget::SHARED_LIBRARY && !implib &&
+        this->Makefile->IsOn("CMAKE_SHARED_LIBRARY_NAME_WITH_VERSION"))
+       {
++      int major = 0;
++      char major_str [10];
++      sscanf(version, "%d.%*d", &major);
++      sprintf(major_str, "%d", major);
++
+       outBase += "-";
+-      outBase += version;
++      outBase += major_str;
+       }
+     }
+ 
+--- origsrc/cmake-2.4.8/Source/kwsys/DynamicLoader.cxx	2008-01-21 12:59:55.000000000 -0600
++++ src/cmake-2.4.8/Source/kwsys/DynamicLoader.cxx	2008-07-29 00:34:48.218750000 -0500
+@@ -372,7 +372,11 @@
+ //----------------------------------------------------------------------------
+ const char* DynamicLoader::LibPrefix()
+ {
++#ifdef __CYGWIN__
++  return "cyg";
++#else
+   return "lib";
++#endif
+ }
+ 
+ //----------------------------------------------------------------------------
+--- origsrc/cmake-2.4.8/Source/kwsys/SharedForward.h.in	2008-01-21 12:59:55.000000000 -0600
++++ src/cmake-2.4.8/Source/kwsys/SharedForward.h.in	2008-07-29 00:35:48.140625000 -0500
+@@ -248,7 +248,7 @@
+ #endif
+ 
+ /* Windows */
+-#if defined(_WIN32)
++#if defined(_WIN32) || defined(__CYGWIN__)
+ # if defined(__CYGWIN__)
+ #  define KWSYS_SHARED_FORWARD_LDD "cygcheck"
+ #  define KWSYS_SHARED_FORWARD_LDD_N 1

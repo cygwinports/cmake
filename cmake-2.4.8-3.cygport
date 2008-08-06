@@ -5,6 +5,13 @@ SRC_URI="
 	mirror://portage/dev-util/${PN}/files/FindSWIG.cmake
 	mirror://portage/dev-util/${PN}/files/${PN}.vim
 "
+PATCH_URI="
+	2.4.8-cygwin.patch
+	2.4.8-implib-install.patch
+	2.4.8-xmlrpc.patch
+	2.4.8-FindFLTK.patch
+	2.4.8-KDE3Macros.patch
+"
 
 src_compile() {
 	cd ${B}

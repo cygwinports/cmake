@@ -8,7 +8,7 @@ to support complex environments requiring system configuration,
 pre-processor generation, code generation, and template instantiation.
 
 Runtime requirements:
-  cygwin-1.5.25-11
+  cygwin-1.5.25-15
   libcurl4-7.16.3-1
   libexpat1-2.0.1-1
   libncurses8-5.5-3
@@ -17,8 +17,8 @@ Runtime requirements:
 
 Build requirements:
 (besides corresponding -devel packages)
-  binutils-20060817-1
-  cygport-0.3.9-1
+  binutils-20080523-2
+  cygport-0.3.12-1
   gcc-core-3.4.4-3
   gcc-g++-3.4.4-3
   make-3.81-1
@@ -327,6 +327,9 @@ Files included in the binary package:
 ------------------
 
 Port Notes:
+
+----- version 2.4.8-3 -----
+Revised patches to fix behaviour on Cygwin.
 
 ----- version 2.4.8-2 -----
 Fixed module library install.

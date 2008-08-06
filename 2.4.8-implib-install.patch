@@ -1,0 +1,29 @@
+--- origsrc/cmake-2.4.8/Source/cmInstallTargetGenerator.cxx	2008-01-21 12:59:53.000000000 -0600
++++ src/cmake-2.4.8/Source/cmInstallTargetGenerator.cxx	2008-07-29 00:29:45.765625000 -0500
+@@ -76,6 +76,13 @@
+   std::string props;
+   const char* properties = 0;
+   cmTarget::TargetType type = this->Target->GetType();
++
++  // An import library looks like a static library.
++  if(this->ImportLibrary)
++    {
++    type = cmTarget::STATIC_LIBRARY;
++    }
++
+   switch(type)
+     {
+     case cmTarget::SHARED_LIBRARY:
+@@ -153,12 +160,6 @@
+       break;
+     }
+ 
+-  // An import library looks like a static library.
+-  if(this->ImportLibrary)
+-    {
+-    type = cmTarget::STATIC_LIBRARY;
+-    }
+-
+   // Write code to install the target file.
+   const char* no_dir_permissions = 0;
+   const char* no_rename = 0;
