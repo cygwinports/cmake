@@ -1,25 +1,35 @@
+inherit emacs
+
 DESCRIPTION="Cross-platform makefile generation system"
 HOMEPAGE="http://www.cmake.org/"
 SRC_URI="
 	http://www.cmake.org/files/v${PV_MAJ_MIN}/${P}.tar.gz
-	mirror://portage/dev-util/${PN}/files/FindSWIG.cmake
 	mirror://portage/dev-util/${PN}/files/${PN}.vim
 "
 PATCH_URI="
-	2.4.8-cygwin.patch
-	2.4.8-implib-install.patch
+	mirror://portage/dev-util/${PN}/files/${P}-gc-sections.patch
+	mirror://portage/dev-util/${PN}/files/${P}-rpath.patch
+	2.6-cygwin.patch
 	2.4.8-xmlrpc.patch
-	2.4.8-FindFLTK.patch
-	2.4.8-KDE3Macros.patch
+	2.6-FindFLTK.patch
+	2.6-KDE3Macros.patch
 "
+
+PKG_NAMES="${PN} ${PN}-gui"
+PKG_HINTS="setup gui"
+PKG_CONTENTS[0]="--exclude=${PN}-gui.exe usr/bin/ usr/share/${P}/
+                 usr/share/doc/ usr/share/emacs/ usr/share/man/ usr/share/vim/"
+PKG_CONTENTS[1]="etc/ usr/bin/${PN}-gui.exe usr/share/applications/
+                 usr/share/mime/ usr/share/pixmaps/"
 
 src_compile() {
 	cd ${B}
 	${S}/bootstrap \
 		--prefix=/usr \
 		--datadir=/share/${PN} \
-		--docdir=/share/doc/${PN} \
+		--docdir=/share/doc/${P} \
 		--mandir=/share/man \
+		--qt-gui \
 		--system-libs \
 		 || "bootstrap failed"
 	cygmake
@@ -29,8 +39,7 @@ src_install() {
 	cd ${B}
 	cyginstall
 
-	insinto /usr/share/${P}/Modules
-	doins ${S}/FindSWIG.cmake
+	doemacs ${S}/Docs/cmake-mode.el
 
 	insinto /usr/share/vim/vimfiles/syntax
 	doins ${S}/Docs/cmake-syntax.vim

@@ -1,0 +1,27 @@
+--- origsrc/cmake-2.6.1/Modules/FindFLTK.cmake	2008-08-01 10:34:50.000000000 -0500
++++ src/cmake-2.6.1/Modules/FindFLTK.cmake	2008-08-27 22:15:32.858379600 -0500
+@@ -37,11 +37,6 @@
+   SET( FLTK_PLATFORM_DEPENDENT_LIBS  "-framework Carbon -framework Cocoa -framework ApplicationServices -lz")
+ ENDIF(APPLE)
+ 
+-IF(CYGWIN)
+-  FIND_LIBRARY(FLTK_MATH_LIBRARY m)
+-  SET( FLTK_PLATFORM_DEPENDENT_LIBS ole32 uuid comctl32 wsock32 supc++ ${FLTK_MATH_LIBRARY} -lgdi32)
+-ENDIF(CYGWIN)
+-
+ # If FLTK_INCLUDE_DIR is already defined we assigne its value to FLTK_DIR
+ IF(FLTK_INCLUDE_DIR)
+   SET(FLTK_DIR ${FLTK_INCLUDE_DIR})
+--- origsrc/cmake-2.6.1/Modules/FindFLTK2.cmake	2008-08-01 10:34:50.000000000 -0500
++++ src/cmake-2.6.1/Modules/FindFLTK2.cmake	2008-08-27 22:15:55.795879600 -0500
+@@ -32,10 +32,6 @@
+   SET( FLTK2_PLATFORM_DEPENDENT_LIBS  "-framework Carbon -framework Cocoa -framework ApplicationServices -lz")
+ ENDIF(APPLE)
+ 
+-IF(CYGWIN)
+-  SET( FLTK2_PLATFORM_DEPENDENT_LIBS ole32 uuid comctl32 wsock32 supc++ -lm -lgdi32)
+-ENDIF(CYGWIN)
+-
+ # If FLTK2_INCLUDE_DIR is already defined we assigne its value to FLTK2_DIR
+ IF(FLTK2_INCLUDE_DIR)
+   SET(FLTK2_DIR ${FLTK2_INCLUDE_DIR})

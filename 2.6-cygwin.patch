@@ -1,6 +1,10 @@
---- origsrc/cmake-2.4.8/Modules/Platform/CYGWIN.cmake	2008-01-21 12:59:51.000000000 -0600
-+++ src/cmake-2.4.8/Modules/Platform/CYGWIN.cmake	2008-07-29 00:40:19.937500000 -0500
-@@ -1,25 +1,21 @@
+--- origsrc/cmake-2.6.1/Modules/Platform/CYGWIN.cmake	2008-08-01 10:34:50.000000000 -0500
++++ src/cmake-2.6.1/Modules/Platform/CYGWIN.cmake	2008-08-27 22:26:25.905254600 -0500
+@@ -1,25 +1,25 @@
+-SET(WIN32 1)
++SET(WIN32 0)
+ SET(CYGWIN 1)
+ 
 -SET(CMAKE_SHARED_LIBRARY_CREATE_C_FLAGS "-shared -Wl,--export-all-symbols -Wl,--enable-auto-import")
 +SET(CMAKE_SHARED_LIBRARY_CREATE_C_FLAGS "-shared -Wl,--export-all-symbols -Wl,--enable-auto-import -Wl,--enable-auto-image-base")
  SET(CMAKE_SHARED_MODULE_CREATE_C_FLAGS ${CMAKE_SHARED_LIBRARY_CREATE_C_FLAGS})
@@ -19,44 +23,36 @@
 +SET(CMAKE_SHARED_LIBRARY_C_FLAGS "-DDLL_EXPORT")
 +SET(CMAKE_SHARED_LIBRARY_CXX_FLAGS "-DDLL_EXPORT")
  SET(CMAKE_EXECUTABLE_SUFFIX ".exe")          # .exe
--SET(CMAKE_CREATE_WIN32_EXE  "-mwindows")
+ SET(CMAKE_CREATE_WIN32_EXE  "-mwindows")
  # Modules have a different default prefix that shared libs.
  SET(CMAKE_MODULE_EXISTS 1)
  
 -SET(CMAKE_FIND_LIBRARY_PREFIXES "cyg" "lib")
 -SET(CMAKE_FIND_LIBRARY_SUFFIXES ".dll" ".dll.a" ".a")
--
--SET(CMAKE_GNULD_IMAGE_VERSION
--  "-Wl,--major-image-version,<TARGET_VERSION_MAJOR>,--minor-image-version,<TARGET_VERSION_MINOR>")
 +SET(CMAKE_FIND_LIBRARY_PREFIXES "lib")
 +SET(CMAKE_FIND_LIBRARY_SUFFIXES ".dll.a" ".a")
  
- SET(CMAKE_C_CREATE_SHARED_MODULE
-   "<CMAKE_C_COMPILER> <LANGUAGE_COMPILE_FLAGS> <CMAKE_SHARED_MODULE_C_FLAGS> <LINK_FLAGS> <CMAKE_SHARED_MODULE_CREATE_C_FLAGS> -o <TARGET> ${CMAKE_GNULD_IMAGE_VERSION} <OBJECTS> <LINK_LIBRARIES>")
---- origsrc/cmake-2.4.8/Source/CTest/Curl/if2ip.c	2008-01-21 12:59:54.000000000 -0600
-+++ src/cmake-2.4.8/Source/CTest/Curl/if2ip.c	2008-07-29 00:33:08.125000000 -0500
-@@ -31,7 +31,7 @@
- #include <unistd.h>
- #endif
+ SET(CMAKE_GNULD_IMAGE_VERSION
+   "-Wl,--major-image-version,<TARGET_VERSION_MAJOR>,--minor-image-version,<TARGET_VERSION_MINOR>")
+--- origsrc/cmake-2.6.1/Source/CMakeLists.txt	2008-08-01 10:34:51.000000000 -0500
++++ src/cmake-2.6.1/Source/CMakeLists.txt	2008-08-27 22:59:26.762974600 -0500
+@@ -359,12 +359,12 @@
+   CPack/cmCPackZIPGenerator.cxx
+   )
  
--#if !defined(WIN32) && !defined(__BEOS__) && !defined(__CYGWIN32__) && \
-+#if !defined(WIN32) && !defined(__BEOS__) && \
-     !defined(__riscos__) && !defined(__INTERIX) && !defined(NETWARE)
- 
- #ifdef HAVE_SYS_SOCKET_H
---- origsrc/cmake-2.4.8/Source/CTest/Curl/if2ip.h	2008-01-21 12:59:54.000000000 -0600
-+++ src/cmake-2.4.8/Source/CTest/Curl/if2ip.h	2008-07-29 00:33:19.562500000 -0500
-@@ -24,7 +24,7 @@
-  ***************************************************************************/
- #include "setup.h"
- 
--#if !defined(WIN32) && !defined(__BEOS__) && !defined(__CYGWIN32__) && \
-+#if !defined(WIN32) && !defined(__BEOS__) && \
-     !defined(__riscos__) && !defined(__INTERIX)
- extern char *Curl_if2ip(const char *interface, char *buf, int buf_size);
- #else
---- origsrc/cmake-2.4.8/Source/WXDialog/bin/FindwxW.cmake	2008-01-21 12:59:55.000000000 -0600
-+++ src/cmake-2.4.8/Source/WXDialog/bin/FindwxW.cmake	2008-07-29 00:38:37.421875000 -0500
+-IF(WIN32 AND UNIX)
++IF(CYGWIN)
+   SET(CPACK_SRCS ${CPACK_SRCS}
+     CPack/cmCPackCygwinBinaryGenerator.cxx
+     CPack/cmCPackCygwinSourceGenerator.cxx
+     )
+-ENDIF(WIN32 AND UNIX)
++ENDIF(CYGWIN)
+   
+ IF(UNIX)
+   SET(CPACK_SRCS ${CPACK_SRCS}
+--- origsrc/cmake-2.6.1/Source/WXDialog/bin/FindwxW.cmake	2008-08-01 10:34:55.000000000 -0500
++++ src/cmake-2.6.1/Source/WXDialog/bin/FindwxW.cmake	2008-08-27 22:30:25.264629600 -0500
 @@ -247,10 +247,10 @@
      #
      # Find XWindows
@@ -93,9 +89,9 @@
  ENDIF(WIN32_STYLE_FIND)
  
  IF( WXWIDGETS_USE_SHARED )
---- origsrc/cmake-2.4.8/Source/cmCacheManager.cxx	2008-01-21 12:59:52.000000000 -0600
-+++ src/cmake-2.4.8/Source/cmCacheManager.cxx	2008-07-29 00:27:37.218750000 -0500
-@@ -26,7 +26,7 @@
+--- origsrc/cmake-2.6.1/Source/cmCacheManager.cxx	2008-08-01 10:34:51.000000000 -0500
++++ src/cmake-2.6.1/Source/cmCacheManager.cxx	2008-08-27 22:30:43.014629600 -0500
+@@ -27,7 +27,7 @@
  
  #include <cmsys/RegularExpression.hxx>
  
@@ -104,27 +100,31 @@
  # include <windows.h>
  #endif // _WIN32
  
---- origsrc/cmake-2.4.8/Source/cmMakefile.cxx	2008-01-21 12:59:53.000000000 -0600
-+++ src/cmake-2.4.8/Source/cmMakefile.cxx	2008-07-29 00:30:59.968750000 -0500
-@@ -1866,14 +1866,12 @@
-  */
- void cmMakefile::AddDefaultDefinitions()
- {
+--- origsrc/cmake-2.6.1/Source/cmMakefile.cxx	2008-08-01 10:34:53.000000000 -0500
++++ src/cmake-2.6.1/Source/cmMakefile.cxx	2008-08-27 22:31:20.514629600 -0500
+@@ -2216,18 +2216,13 @@
+   working, these variables are still also set here in this place, but they
+   will be reset in CMakeSystemSpecificInformation.cmake before the platform 
+   files are executed. */
 -#if defined(_WIN32) || defined(__CYGWIN__)
 +#if defined(_WIN32)
    this->AddDefinition("WIN32", "1");
+   this->AddDefinition("CMAKE_HOST_WIN32", "1");
  #else
    this->AddDefinition("UNIX", "1");
+   this->AddDefinition("CMAKE_HOST_UNIX", "1");
  #endif
 -  // Cygwin is more like unix so enable the unix commands
- #if defined(__CYGWIN__)
+-#if defined(__CYGWIN__)
 -  this->AddDefinition("UNIX", "1");
-   this->AddDefinition("CYGWIN", "1");
- #endif
+-  this->AddDefinition("CMAKE_HOST_UNIX", "1");
+-#endif
  #if defined(__APPLE__)
---- origsrc/cmake-2.4.8/Source/cmTarget.cxx	2008-01-21 12:59:53.000000000 -0600
-+++ src/cmake-2.4.8/Source/cmTarget.cxx	2008-07-15 15:59:03.703125000 -0500
-@@ -1341,8 +1341,13 @@
+   this->AddDefinition("APPLE", "1");
+   this->AddDefinition("CMAKE_HOST_APPLE", "1");
+--- origsrc/cmake-2.6.1/Source/cmTarget.cxx	2008-08-01 10:34:53.000000000 -0500
++++ src/cmake-2.6.1/Source/cmTarget.cxx	2008-08-27 22:33:13.496333400 -0500
+@@ -2439,8 +2439,13 @@
      if(type == cmTarget::SHARED_LIBRARY && !implib &&
         this->Makefile->IsOn("CMAKE_SHARED_LIBRARY_NAME_WITH_VERSION"))
        {
@@ -139,13 +139,13 @@
        }
      }
  
---- origsrc/cmake-2.4.8/Source/kwsys/DynamicLoader.cxx	2008-01-21 12:59:55.000000000 -0600
-+++ src/cmake-2.4.8/Source/kwsys/DynamicLoader.cxx	2008-07-29 00:34:48.218750000 -0500
-@@ -372,7 +372,11 @@
+--- origsrc/cmake-2.6.1/Source/kwsys/DynamicLoader.cxx	2008-08-01 10:34:54.000000000 -0500
++++ src/cmake-2.6.1/Source/kwsys/DynamicLoader.cxx	2008-08-27 22:33:47.041920200 -0500
+@@ -74,7 +74,11 @@
  //----------------------------------------------------------------------------
  const char* DynamicLoader::LibPrefix()
  {
-+#ifdef __CYGWIN__
++#if defined(__CYGWIN__)
 +  return "cyg";
 +#else
    return "lib";
@@ -153,9 +153,9 @@
  }
  
  //----------------------------------------------------------------------------
---- origsrc/cmake-2.4.8/Source/kwsys/SharedForward.h.in	2008-01-21 12:59:55.000000000 -0600
-+++ src/cmake-2.4.8/Source/kwsys/SharedForward.h.in	2008-07-29 00:35:48.140625000 -0500
-@@ -248,7 +248,7 @@
+--- origsrc/cmake-2.6.1/Source/kwsys/SharedForward.h.in	2008-08-01 10:34:54.000000000 -0500
++++ src/cmake-2.6.1/Source/kwsys/SharedForward.h.in	2008-08-27 22:34:25.931051800 -0500
+@@ -253,7 +253,7 @@
  #endif
  
  /* Windows */
