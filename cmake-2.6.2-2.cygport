@@ -7,8 +7,6 @@ SRC_URI="
 	mirror://portage/dev-util/${PN}/files/${PN}.vim
 "
 PATCH_URI="
-	mirror://portage/dev-util/${PN}/files/${P}-gc-sections.patch
-	mirror://portage/dev-util/${PN}/files/${P}-rpath.patch
 	2.6-cygwin.patch
 	2.4.8-xmlrpc.patch
 	2.6-FindFLTK.patch
