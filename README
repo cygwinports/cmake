@@ -463,6 +463,10 @@ Files included in the binary packages:
 
 Port Notes:
 
+----- version 2.6.2-3 -----
+Added patch from Gentoo to prefer the default python rather than
+the newest.
+
 ----- version 2.6.2-2 -----
 Version bump.
 

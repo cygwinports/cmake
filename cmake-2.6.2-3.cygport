@@ -7,24 +7,26 @@ SRC_URI="
 	mirror://portage/dev-util/${PN}/files/${PN}.vim
 "
 PATCH_URI="
+	mirror://portage/dev-util/${PN}/files/${PN}-FindPythonInterp.patch
 	2.6-cygwin.patch
 	2.4.8-xmlrpc.patch
 	2.6-FindFLTK.patch
 	2.6-KDE3Macros.patch
+	2.6-usr-prefix.patch
 "
 
 PKG_NAMES="${PN} ${PN}-gui"
 PKG_HINTS="setup gui"
-PKG_CONTENTS[0]="--exclude=${PN}-gui.exe usr/bin/ usr/share/${P}/
-                 usr/share/doc/ usr/share/emacs/ usr/share/man/ usr/share/vim/"
-PKG_CONTENTS[1]="etc/ usr/bin/${PN}-gui.exe usr/share/applications/
-                 usr/share/mime/ usr/share/pixmaps/"
+cmake_CONTENTS="--exclude=${PN}-gui.exe usr/bin/ usr/share/${P}/
+                usr/share/doc/ usr/share/emacs/ usr/share/man/ usr/share/vim/"
+cmake_gui_CONTENTS="etc/ usr/bin/${PN}-gui.exe usr/share/applications/
+                    usr/share/mime/ usr/share/pixmaps/"
 
 src_compile() {
 	cd ${B}
+#		--datadir=/share/${PN} \
 	${S}/bootstrap \
 		--prefix=/usr \
-		--datadir=/share/${PN} \
 		--docdir=/share/doc/${P} \
 		--mandir=/share/man \
 		--qt-gui \
