@@ -24,10 +24,9 @@ cmake_gui_CONTENTS="etc/ usr/bin/${PN}-gui.exe usr/share/applications/
 
 src_compile() {
 	cd ${B}
-#		--datadir=/share/${PN} \
 	${S}/bootstrap \
 		--prefix=/usr \
-		--docdir=/share/doc/${P} \
+		--docdir=/share/doc/${PN} \
 		--mandir=/share/man \
 		--qt-gui \
 		--system-libs \
