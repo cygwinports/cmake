@@ -1,5 +1,5 @@
 category: Devel
-requires: cygwin libcurl4 libexpat1 libgcc1 libncurses8 libstdc++6 libxmlrpc3 zlib0
+requires: libcurl4 libexpat1 libgcc1 libncurses8 libstdc++6 libxmlrpc3 zlib0
 sdesc: "Cross-platform makefile generation system"
 ldesc: "CMake is used to control the software compilation process using 
 simple platform and compiler independent configuration files. CMake 
