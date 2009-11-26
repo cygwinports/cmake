@@ -1,4 +1,4 @@
-inherit emacs
+inherit emacs qt4
 
 DESCRIPTION="Cross-platform makefile generation system"
 HOMEPAGE="http://www.cmake.org/"
@@ -8,27 +8,28 @@ SRC_URI="
 "
 PATCH_URI="
 	mirror://portage/dev-util/${PN}/files/${PN}-FindPythonInterp.patch
-	2.6-cygwin.patch
-	2.4.8-xmlrpc.patch
+	2.8-cygwin.patch
+	2.8-xmlrpc.patch
 	2.6-FindFLTK.patch
 	2.6-KDE3Macros.patch
-	2.6-usr-prefix.patch
+	2.8-usr-prefix.patch
 "
 
 PKG_NAMES="${PN} ${PN}-gui"
 PKG_HINTS="setup gui"
-cmake_CONTENTS="--exclude=${PN}-gui.exe usr/bin/ usr/share/${P}/
+cmake_CONTENTS="--exclude=${PN}-gui.exe usr/bin/ usr/share/cmake*/
                 usr/share/doc/ usr/share/emacs/ usr/share/man/ usr/share/vim/"
 cmake_gui_CONTENTS="etc/ usr/bin/${PN}-gui.exe usr/share/applications/
                     usr/share/mime/ usr/share/pixmaps/"
 
 src_compile() {
 	cd ${B}
+    export CC CXX
 	${S}/bootstrap \
 		--prefix=/usr \
 		--docdir=/share/doc/${PN} \
 		--mandir=/share/man \
-		--qt-gui \
+		--qt-gui --qt-qmake=${QT4_QMAKE} \
 		--system-libs \
 		 || "bootstrap failed"
 	cygmake
@@ -37,6 +38,7 @@ src_compile() {
 src_install() {
 	cd ${B}
 	cyginstall
+	mv ${D}/usr/share/doc/${P}/* ${D}/usr/share/doc/${PN}/
 
 	doemacs ${S}/Docs/cmake-mode.el
 
