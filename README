@@ -8,23 +8,23 @@ to support complex environments requiring system configuration,
 pre-processor generation, code generation, and template instantiation.
 
 Runtime requirements:
-  cygwin-1.7.0-64
+  cygwin-1.7.0-67
   libcurl4-7.19.6-1
   libexpat1-2.0.1-1
-  libgcc1-4.3.4-1
+  libgcc1-4.3.4-3
   libncurses9-5.7-15
-  libstdc++6-4.3.4-1
+  libstdc++6-4.3.4-3
   zlib0-1.2.3-2
 (cmake-gui)
-  libQtCore4-4.5.3-1
-  libQtGui4-4.5.3-1
+  libQtCore4-4.5.3-2
+  libQtGui4-4.5.3-2
 
 Build requirements:
 (besides corresponding -devel packages)
   binutils-2.19.51-1
   cygport-0.9.10-1
-  gcc4-core-4.3.4-1
-  gcc4-g++-4.3.4-1
+  gcc4-core-4.3.4-2
+  gcc4-g++-4.3.4-2
   make-3.81-2
 
 Canonical website:
