@@ -27,6 +27,7 @@ src_compile() {
     export CC CXX
 	${S}/bootstrap \
 		--prefix=/usr \
+		--datadir=/share/${PN} \
 		--docdir=/share/doc/${PN} \
 		--mandir=/share/man \
 		--qt-gui --qt-qmake=${QT4_QMAKE} \
