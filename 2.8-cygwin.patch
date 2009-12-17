@@ -37,7 +37,17 @@
    "-Wl,--major-image-version,<TARGET_VERSION_MAJOR>,--minor-image-version,<TARGET_VERSION_MINOR>")
 --- origsrc/cmake-2.8.0/Source/CMakeLists.txt	2009-11-13 12:32:54.000000000 -0600
 +++ src/cmake-2.8.0/Source/CMakeLists.txt	2009-11-24 22:11:27.524498800 -0600
-@@ -417,12 +417,12 @@ SET(CPACK_SRCS
+@@ -251,9 +251,7 @@ IF(UNIX)
+   SET(SRCS ${SRCS} cmGlobalKdevelopGenerator.cxx)
+ ENDIF(UNIX)
+ 
+-IF(NOT CYGWIN)
+   SET(SRCS ${SRCS} cmExtraCodeBlocksGenerator.cxx)
+-ENDIF(NOT CYGWIN)
+ 
+ # XCode only works on apple
+ IF(APPLE)
+@@ -417,12 +415,12 @@ SET(CPACK_SRCS
    CPack/cmCPackZIPGenerator.cxx
    )
  
@@ -103,6 +113,28 @@
        }
      }
  
+--- origsrc/cmake-2.8.0/Source/cmake.cxx	2009-11-13 12:32:54.000000000 -0600
++++ src/cmake-2.8.0/Source/cmake.cxx	2009-12-16 04:12:21.112061000 -0600
+@@ -81,7 +81,7 @@
+ #include "cmCallVisualStudioMacro.h"
+ #endif
+ 
+-#if !defined(__CYGWIN__) && !defined(CMAKE_BOOT_MINGW)
++#if !defined(CMAKE_BOOT_MINGW)
+ # include "cmExtraCodeBlocksGenerator.h"
+ #endif
+ 
+@@ -1693,10 +1693,8 @@ void cmake::AddDefaultExtraGenerators()
+   // e.g. kdevelop4 ?
+ #endif
+ 
+-#if !defined(__CYGWIN__)
+   this->AddExtraGenerator(cmExtraCodeBlocksGenerator::GetActualName(),
+                           &cmExtraCodeBlocksGenerator::New);
+-#endif
+ 
+ #ifdef CMAKE_USE_ECLIPSE
+   this->AddExtraGenerator(cmExtraEclipseCDT4Generator::GetActualName(),
 --- origsrc/cmake-2.8.0/Source/kwsys/DynamicLoader.cxx	2009-11-13 12:33:01.000000000 -0600
 +++ src/cmake-2.8.0/Source/kwsys/DynamicLoader.cxx	2009-11-24 22:11:27.599503100 -0600
 @@ -72,7 +72,11 @@ DynamicLoader::GetSymbolAddress(DynamicL
