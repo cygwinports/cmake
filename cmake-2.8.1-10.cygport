@@ -1,4 +1,4 @@
-inherit emacs qt4
+inherit emacs vim qt4
 
 DESCRIPTION="Cross-platform makefile generation system"
 HOMEPAGE="http://www.cmake.org/"
@@ -8,11 +8,9 @@ SRC_URI="
 "
 PATCH_URI="
 	mirror://portage/dev-util/${PN}/files/${PN}-FindPythonInterp.patch
-	2.8-cygwin.patch
-	2.8-xmlrpc.patch
+	2.8.1-cygwin.patch
+	2.8.1-ncurses.patch
 	2.6-FindFLTK.patch
-	2.6-KDE3Macros.patch
-	2.8-usr-prefix.patch
 "
 
 PKG_NAMES="${PN} ${PN}-gui"
@@ -32,7 +30,7 @@ src_compile() {
 		--mandir=/share/man \
 		--qt-gui --qt-qmake=${QT4_QMAKE} \
 		--system-libs \
-		 || "bootstrap failed"
+		|| error "bootstrap failed"
 	cygmake
 }
 
@@ -44,12 +42,12 @@ src_install() {
 	doemacs ${S}/Docs/cmake-mode.el
 	emacs_compile
 
-	insinto /usr/share/vim/vimfiles/syntax
-	doins ${S}/Docs/cmake-syntax.vim
+	viminto syntax
+	dovim ${S}/Docs/cmake-syntax.vim
 
-	insinto /usr/share/vim/vimfiles/indent
-	doins ${S}/Docs/cmake-indent.vim
+	viminto indent
+	dovim ${S}/Docs/cmake-indent.vim
 
-	insinto /usr/share/vim/vimfiles/ftdetect
-	doins ${S}/${PN}.vim
+	viminto ftdetect
+	dovim ${S}/${PN}.vim
 }
