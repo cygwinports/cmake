@@ -1,6 +1,4 @@
 * libncurses-devel provides a libcurses symlink
-* libncurses10 is now current; libncurses7 and before (without the 
-hyphen in the DLL name) are old enough to ignore.
 
 --- origsrc/cmake-2.8.1/Modules/FindCurses.cmake	2010-04-06 09:45:31.000000000 -0500
 +++ src/cmake-2.8.1/Modules/FindCurses.cmake	2010-04-29 04:02:58.187387800 -0500
@@ -16,16 +14,3 @@ hyphen in the DLL name) are old enough to ignore.
  
  
  # Not sure the logic is correct here.
---- origsrc/cmake-2.8.1/Utilities/Release/Cygwin/CMakeLists.txt	2010-04-06 09:45:47.000000000 -0500
-+++ src/cmake-2.8.1/Utilities/Release/Cygwin/CMakeLists.txt	2010-04-29 19:16:29.255401600 -0500
-@@ -1,8 +1,8 @@
--FILE(GLOB INSTALLED_CURSES /usr/bin/cygncurses*.dll)
-+FILE(GLOB INSTALLED_CURSES /usr/bin/cygncurses-*.dll)
- SET(MAX 0)
- FOREACH(f ${INSTALLED_CURSES})
-   IF(NOT "${f}" MATCHES "\\+")
--    STRING(REGEX REPLACE ".*([0-9]).dll" "\\1" NUMBER "${f}")
-+    STRING(REGEX REPLACE ".*-([0-9]*).dll" "\\1" NUMBER "${f}")
-     IF(NUMBER GREATER MAX)
-       SET(MAX ${NUMBER}) 
-     ENDIF(NUMBER GREATER MAX)
