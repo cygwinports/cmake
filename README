@@ -21,8 +21,8 @@ Runtime requirements:
 
 Build requirements:
 (besides corresponding -devel packages)
-  binutils-2.20.51-1
-  cygport-0.9.83-1
+  binutils-2.20.51-2
+  cygport-0.9.84-1
   gcc4-core-4.3.4-2
   gcc4-g++-4.3.4-2
   make-3.81-2
@@ -50,6 +50,9 @@ This will create:
 -------------------------------------------
 
 Port Notes:
+
+----- version 2.8.1-10 -----
+Fixed CMAKE_EXE_EXPORTS_*_FLAG.
 
 ----- version 2.8.1-10 -----
 Version bump.

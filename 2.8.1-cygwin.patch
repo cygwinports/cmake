@@ -14,14 +14,14 @@
  SET(CMAKE_IMPORT_LIBRARY_SUFFIX ".dll.a")
 --- origsrc/cmake-2.8.1/Modules/Platform/CYGWIN-GNU.cmake	2010-04-06 09:45:32.000000000 -0500
 +++ src/cmake-2.8.1/Modules/Platform/CYGWIN-GNU.cmake	2010-04-29 03:15:14.095571100 -0500
-@@ -20,6 +20,7 @@ set(__CYGWIN_COMPILER_GNU 1)
+@@ -46,6 +45,7 @@ macro(__cygwin_compiler_gnu lang)
+     SET(CMAKE_${type}_LINK_DYNAMIC_${lang}_FLAGS "-Wl,-Bdynamic")
+   ENDFOREACH(type)
  
- # TODO: Is -Wl,--enable-auto-import now always default?
- set(CMAKE_EXE_LINKER_FLAGS_INIT "-Wl,--enable-auto-import")
-+SET(CMAKE_EXE_EXPORTS_${lang}_FLAG "-Wl,--export-all-symbols")
- set(CMAKE_CREATE_WIN32_EXE  "-mwindows")
- 
- set(CMAKE_GNULD_IMAGE_VERSION
++  set(CMAKE_EXE_EXPORTS_${lang}_FLAG "-Wl,--export-all-symbols")
+   # TODO: Is -Wl,--enable-auto-import now always default?
+   set(CMAKE_SHARED_LIBRARY_CREATE_${lang}_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_${lang}_FLAGS} -Wl,--enable-auto-import")
+   set(CMAKE_SHARED_MODULE_CREATE_${lang}_FLAGS "${CMAKE_SHARED_LIBRARY_CREATE_${lang}_FLAGS}")
 --- origsrc/cmake-2.8.1/Source/cmMakefile.cxx	2010-04-06 09:45:34.000000000 -0500
 +++ src/cmake-2.8.1/Source/cmMakefile.cxx	2010-04-29 03:17:22.069890800 -0500
 @@ -2344,18 +2344,13 @@ void cmMakefile::AddDefaultDefinitions()
