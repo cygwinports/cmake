@@ -11,6 +11,7 @@ PATCH_URI="
 	2.8.1-cygwin.patch
 	2.8.1-ncurses.patch
 	2.6-FindFLTK.patch
+	2.8.1-system-processor.patch
 "
 
 PKG_NAMES="${PN} ${PN}-gui"
