@@ -8,23 +8,23 @@ to support complex environments requiring system configuration,
 pre-processor generation, code generation, and template instantiation.
 
 Runtime requirements:
-  cygwin-1.7.5-1
-  libcurl4-7.19.6-1
+  cygwin-1.7.7-1
+  libcurl4-7.20.1-1
   libexpat1-2.0.1-1
-  libgcc1-4.3.4-3
+  libgcc1-4.5.1-1
   libncurses10-5.7-18
-  libstdc++6-4.3.4-3
-  zlib0-1.2.3-2
+  libstdc++6-4.5.1-1
+  zlib0-1.2.5-1
 (cmake-gui)
-  libQtCore4-4.6.2-1
-  libQtGui4-4.6.2-1
+  libQtCore4-4.6.3-1
+  libQtGui4-4.6.3-1
 
 Build requirements:
 (besides corresponding -devel packages)
   binutils-2.20.51-2
-  cygport-0.9.84-1
-  gcc4-core-4.3.4-2
-  gcc4-g++-4.3.4-2
+  cygport-0.10.0-1
+  gcc4-core-4.5.1-1
+  gcc4-g++-4.5.1-1
   make-3.81-2
 
 Canonical website:
@@ -36,22 +36,25 @@ Canonical download:
 -------------------------------------------
 
 Build instructions:
-  unpack cmake-2.8.1-X-src.tar.bz2
+  unpack cmake-2.8.2-X-src.tar.bz2
     if you use setup to install this src package, it will be
 	 unpacked under /usr/src automatically
   cd /usr/src
-  cygport ./cmake-2.8.1-X.cygport all
+  cygport ./cmake-2.8.2-X.cygport all
 
 This will create:
-  /usr/src/cmake-2.8.1-X-src.tar.bz2
-  /usr/src/cmake-2.8.1-X.tar.bz2
-  /usr/src/cmake-gui-2.8.1-X.tar.bz2
+  /usr/src/cmake-2.8.2-X-src.tar.bz2
+  /usr/src/cmake-2.8.2-X.tar.bz2
+  /usr/src/cmake-gui-2.8.2-X.tar.bz2
 
 -------------------------------------------
 
 Port Notes:
 
------ version 2.8.1-10 -----
+----- version 2.8.2-1 -----
+Version bump.
+
+----- version 2.8.1-11 -----
 Fixed CMAKE_EXE_EXPORTS_*_FLAG.
 
 ----- version 2.8.1-10 -----

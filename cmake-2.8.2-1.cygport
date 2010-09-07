@@ -9,7 +9,6 @@ SRC_URI="
 PATCH_URI="
 	mirror://portage/dev-util/${PN}/files/${PN}-FindPythonInterp.patch
 	2.8.1-cygwin.patch
-	2.8.1-ncurses.patch
 	2.6-FindFLTK.patch
 	2.8.1-system-processor.patch
 "
@@ -38,7 +37,7 @@ src_compile() {
 src_install() {
 	cd ${B}
 	cyginstall
-	mv ${D}/usr/share/doc/${P}/* ${D}/usr/share/doc/${PN}/
+	mv ${D}/usr/share/doc/${P} ${D}/usr/share/doc/${PN}
 
 	doemacs ${S}/Docs/cmake-mode.el
 	emacs_compile
