@@ -7,18 +7,19 @@ SRC_URI="
 	mirror://portage/dev-util/${PN}/files/${PN}.vim
 "
 PATCH_URI="
-	mirror://portage/dev-util/${PN}/files/${PN}-FindPythonInterp.patch
 	2.8.1-cygwin.patch
-	2.6-FindFLTK.patch
-	2.8.1-system-processor.patch
+	2.8.3-python-interp.patch
 "
 
-PKG_NAMES="${PN} ${PN}-gui"
-PKG_HINTS="setup gui"
-cmake_CONTENTS="--exclude=${PN}-gui.exe usr/bin/ usr/share/cmake*/
-                usr/share/doc/ usr/share/emacs/ usr/share/man/ usr/share/vim/"
-cmake_gui_CONTENTS="etc/ usr/bin/${PN}-gui.exe usr/share/applications/
+PKG_NAMES="${PN} ${PN}-gui emacs-cmake vim-cmake"
+PKG_HINTS="setup gui emacs vim"
+cmake_CONTENTS="--exclude=cmake-gui.* usr/bin/ usr/share/cmake*/
+                usr/share/doc/ usr/share/man/"
+cmake_gui_CONTENTS="etc/ usr/bin/cmake-gui.exe usr/share/applications/
+                    usr/share/doc/${PN}/cmake-gui.* usr/share/man/man1/cmake-gui.*
                     usr/share/mime/ usr/share/pixmaps/"
+emacs_cmake_CONTENTS="usr/share/emacs/"
+vim_cmake_CONTENTS="usr/share/vim/"
 
 src_compile() {
 	cd ${B}

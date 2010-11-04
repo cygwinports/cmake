@@ -1,6 +1,7 @@
-category: Devel
-requires: libarchive2 libcurl4 libexpat1 libgcc1 libncurses10 libstdc++6 zlib0
-sdesc: "Cross-platform makefile generation system"
+category: Devel Editors
+requires: cmake emacs
+external-source: cmake
+sdesc: "Cross-platform makefile generation system (Emacs mode)"
 ldesc: "CMake is used to control the software compilation process using 
 simple platform and compiler independent configuration files. CMake 
 generates native makefiles and workspaces that can be used in the 
