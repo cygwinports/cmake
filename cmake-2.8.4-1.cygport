@@ -6,10 +6,6 @@ SRC_URI="
 	http://www.cmake.org/files/v${PV_MAJ_MIN}/${P}.tar.gz
 	mirror://portage/dev-util/${PN}/files/${PN}.vim
 "
-PATCH_URI="
-	2.8.1-cygwin.patch
-	2.8.3-python-interp.patch
-"
 
 PKG_NAMES="${PN} ${PN}-gui emacs-cmake vim-cmake"
 PKG_HINTS="setup gui emacs vim"
