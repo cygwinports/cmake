@@ -9,7 +9,7 @@ SRC_URI="
 
 PKG_NAMES="${PN} ${PN}-gui emacs-cmake vim-cmake"
 PKG_HINTS="setup gui emacs vim"
-cmake_CONTENTS="--exclude=cmake-gui.* usr/bin/ usr/share/cmake*/
+cmake_CONTENTS="--exclude=cmake-gui.* usr/bin/ usr/share/aclocal/ usr/share/cmake*/
                 usr/share/doc/ usr/share/man/"
 cmake_gui_CONTENTS="etc/ usr/bin/cmake-gui.exe usr/share/applications/
                     usr/share/doc/${PN}/cmake-gui.* usr/share/man/man1/cmake-gui.*
@@ -19,7 +19,7 @@ vim_cmake_CONTENTS="usr/share/vim/"
 
 src_compile() {
 	cd ${B}
-    export CC CXX
+	export CC CXX
 	${S}/bootstrap \
 		--prefix=/usr \
 		--datadir=/share/${P} \
@@ -37,7 +37,6 @@ src_install() {
 	mv ${D}/usr/share/doc/${P} ${D}/usr/share/doc/${PN}
 
 	doemacs ${S}/Docs/cmake-mode.el
-	emacs_compile
 
 	viminto syntax
 	dovim ${S}/Docs/cmake-syntax.vim

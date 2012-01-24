@@ -1,5 +1,5 @@
 category: Devel Editors
-requires: cmake emacs
+requires: cmake
 external-source: cmake
 sdesc: "Cross-platform makefile generation system (Emacs mode)"
 ldesc: "CMake is used to control the software compilation process using 
