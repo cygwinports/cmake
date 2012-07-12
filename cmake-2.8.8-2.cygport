@@ -7,6 +7,8 @@ SRC_URI="
 	mirror://portage/dev-util/${PN}/files/${PN}.vim
 "
 
+PATCH_URI="2.8.8-cygwin.patch"
+
 PKG_NAMES="${PN} ${PN}-gui emacs-cmake vim-cmake"
 PKG_HINTS="setup gui emacs vim"
 cmake_CONTENTS="--exclude=cmake-gui.* usr/bin/ usr/share/aclocal/ usr/share/cmake*/
