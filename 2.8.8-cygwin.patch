@@ -1,20 +1,26 @@
---- origsrc/cmake-2.8.8/Source/kwsys/SystemTools.cxx	2012-04-18 13:10:54.000000000 -0500
-+++ src/cmake-2.8.8/Source/kwsys/SystemTools.cxx	2012-07-11 05:42:36.768957300 -0500
-@@ -73,13 +73,6 @@
+--- origsrc/cmake-2.8.9/Source/kwsys/SystemTools.cxx	2012-08-09 13:15:19.000000000 -0500
++++ src/cmake-2.8.9/Source/kwsys/SystemTools.cxx	2012-08-26 17:42:26.430175000 -0500
+@@ -75,19 +75,12 @@
  // Windows API.
  #if defined(_WIN32)
  # include <windows.h>
 -#elif defined (__CYGWIN__)
 -# include <windows.h>
 -# undef _WIN32
--#endif
--
--#ifdef __CYGWIN__
--extern "C" void cygwin_conv_to_win32_path(const char *path, char *win32_path);
  #endif
  
+ #if !KWSYS_CXX_HAS_ENVIRON_IN_STDLIB_H
+ extern char **environ;
+ #endif
+ 
+-#ifdef __CYGWIN__
+-extern "C" void cygwin_conv_to_win32_path(const char *path, char *win32_path);
+-#endif
+-
  // getpwnam doesn't exist on Windows and Cray Xt3/Catamount
-@@ -876,7 +869,7 @@ bool SystemTools::SameFile(const char* f
+ // same for TIOCGWINSZ
+ #if defined(_WIN32) || defined (__LIBCATAMOUNT__)
+@@ -1068,7 +1061,7 @@ bool SystemTools::SameFile(const char* f
  }
  
  //----------------------------------------------------------------------------
@@ -23,60 +29,25 @@
  static bool WindowsFileExists(const char* filename)
  {
    WIN32_FILE_ATTRIBUTE_DATA fd;
-@@ -891,15 +884,7 @@ bool SystemTools::FileExists(const char*
+@@ -1083,7 +1076,7 @@ bool SystemTools::FileExists(const char*
      {
      return false;
      }
 -#if defined(__CYGWIN__)
--  // Convert filename to native windows path if possible.
--  char winpath[MAX_PATH];
--  if(SystemTools::PathCygwinToWin32(filename, winpath))
--    {
--    return WindowsFileExists(winpath);
--    }
--  return access(filename, R_OK) == 0;
--#elif defined(_WIN32)
-+#if defined(_WIN32)
-   return WindowsFileExists(filename);
- #else
-   return access(filename, R_OK) == 0;
-@@ -919,26 +904,6 @@ bool SystemTools::FileExists(const char*
++#if 0
+   // Convert filename to native windows path if possible.
+   char winpath[MAX_PATH];
+   if(SystemTools::PathCygwinToWin32(filename, winpath))
+@@ -1111,7 +1104,7 @@ bool SystemTools::FileExists(const char*
  }
  
  //----------------------------------------------------------------------------
 -#ifdef __CYGWIN__
--bool SystemTools::PathCygwinToWin32(const char *path, char *win32_path)
--{
--  SystemToolsTranslationMap::iterator i =
--    SystemTools::Cyg2Win32Map->find(path);
--
--  if (i != SystemTools::Cyg2Win32Map->end())
--    {
--    strncpy(win32_path, i->second.c_str(), MAX_PATH);
--    }
--  else
--    {
--    cygwin_conv_to_win32_path(path, win32_path);
--    SystemToolsTranslationMap::value_type entry(path, win32_path);
--    SystemTools::Cyg2Win32Map->insert(entry);
--    }
--  return win32_path[0] != 0;
--}
--#endif
--
- bool SystemTools::Touch(const char* filename, bool create)
++#if 0
+ bool SystemTools::PathCygwinToWin32(const char *path, char *win32_path)
  {
-   if(create && !SystemTools::FileExists(filename))
-@@ -3702,7 +3667,7 @@ bool SystemTools::LocateFileInDir(const
- bool SystemTools::FileIsFullPath(const char* in_name)
- {
-   kwsys_stl::string name = in_name;
--#if defined(_WIN32) || defined(__CYGWIN__)
-+#if defined(_WIN32)
-   // On Windows, the name must be at least two characters long.
-   if(name.length() < 2)
-     {
-@@ -4520,9 +4485,6 @@ bool SystemTools::ParseURL( const kwsys_
+   SystemToolsTranslationMap::iterator i =
+@@ -4712,9 +4705,6 @@ bool SystemTools::ParseURL( const kwsys_
  unsigned int SystemToolsManagerCount;
  SystemToolsTranslationMap *SystemTools::TranslationMap;
  SystemToolsTranslationMap *SystemTools::LongPathMap;
@@ -86,7 +57,7 @@
  
  // SystemToolsManager manages the SystemTools singleton.
  // SystemToolsManager should be included in any translation unit
-@@ -4568,9 +4530,6 @@ void SystemTools::ClassInitialize()
+@@ -4760,9 +4750,6 @@ void SystemTools::ClassInitialize()
    // Allocate the translation map first.
    SystemTools::TranslationMap = new SystemToolsTranslationMap;
    SystemTools::LongPathMap = new SystemToolsTranslationMap;
@@ -96,7 +67,7 @@
  
    // Add some special translation paths for unix.  These are not added
    // for windows because drive letters need to be maintained.  Also,
-@@ -4625,9 +4584,6 @@ void SystemTools::ClassFinalize()
+@@ -4817,9 +4804,6 @@ void SystemTools::ClassFinalize()
  {
    delete SystemTools::TranslationMap;
    delete SystemTools::LongPathMap;
@@ -106,8 +77,8 @@
  }
  
  
---- origsrc/cmake-2.8.8/Source/kwsys/SystemTools.hxx.in	2012-04-18 13:10:54.000000000 -0500
-+++ src/cmake-2.8.8/Source/kwsys/SystemTools.hxx.in	2012-07-11 17:42:52.097828100 -0500
+--- origsrc/cmake-2.8.9/Source/kwsys/SystemTools.hxx.in	2012-08-09 13:15:19.000000000 -0500
++++ src/cmake-2.8.9/Source/kwsys/SystemTools.hxx.in	2012-08-26 17:39:16.995340000 -0500
 @@ -277,15 +277,6 @@ public:
    static bool FileExists(const char* filename);
  
@@ -124,7 +95,7 @@
     * Return file length
     */
    static unsigned long FileLength(const char *filename);
-@@ -883,9 +874,6 @@ private:
+@@ -887,9 +878,6 @@ private:
     */
    static SystemToolsTranslationMap *TranslationMap;
    static SystemToolsTranslationMap *LongPathMap;
