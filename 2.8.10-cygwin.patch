@@ -1,0 +1,220 @@
+--- origsrc/cmake-2.8.10/Source/cmFileCommand.cxx	2012-10-31 10:32:06.000000000 -0500
++++ src/cmake-2.8.10/Source/cmFileCommand.cxx	2013-03-16 22:55:11.306681100 -0500
+@@ -1002,7 +1002,7 @@ protected:
+   MatchProperties CollectMatchProperties(const char* file)
+     {
+     // Match rules are case-insensitive on some platforms.
+-#if defined(_WIN32) || defined(__APPLE__) || defined(__CYGWIN__)
++#if defined(_WIN32) || defined(__APPLE__)
+     std::string lower = cmSystemTools::LowerCase(file);
+     const char* file_to_match = lower.c_str();
+ #else
+--- origsrc/cmake-2.8.10/Source/cmInstallCommand.cxx	2012-10-31 10:32:06.000000000 -0500
++++ src/cmake-2.8.10/Source/cmInstallCommand.cxx	2013-03-16 22:56:21.008667800 -0500
+@@ -1090,7 +1090,7 @@ cmInstallCommand::HandleDirectoryMode(st
+       {
+       literal_args += " REGEX \"";
+     // Match rules are case-insensitive on some platforms.
+-#if defined(_WIN32) || defined(__APPLE__) || defined(__CYGWIN__)
++#if defined(_WIN32) || defined(__APPLE__)
+       std::string regex = cmSystemTools::LowerCase(args[i]);
+ #else
+       std::string regex = args[i];
+--- origsrc/cmake-2.8.10/Source/kwsys/Glob.cxx	2012-10-31 10:32:06.000000000 -0500
++++ src/cmake-2.8.10/Source/kwsys/Glob.cxx	2013-03-16 22:58:54.192429400 -0500
+@@ -37,7 +37,7 @@
+ #include <string.h>
+ namespace KWSYS_NAMESPACE
+ {
+-#if defined(_WIN32) || defined(__APPLE__) || defined(__CYGWIN__)
++#if defined(_WIN32) || defined(__APPLE__)
+ // On Windows and apple, no difference between lower and upper case
+ # define KWSYS_GLOB_CASE_INDEPENDENT
+ #endif
+--- origsrc/cmake-2.8.10/Source/kwsys/SystemInformation.cxx	2012-10-31 10:32:06.000000000 -0500
++++ src/cmake-2.8.10/Source/kwsys/SystemInformation.cxx	2013-03-16 23:10:08.734011000 -0500
+@@ -2310,7 +2310,7 @@ int SystemInformationImplementation::Ret
+     pos = buffer.find("processor\t",pos+1);
+     }
+ 
+-#ifdef __linux
++#if defined(__linux) || defined(__CYGWIN__)
+   // Find the largest physical id.
+   int maxId = -1;
+   kwsys_stl::string idc =
+@@ -2385,9 +2385,7 @@ int SystemInformationImplementation::Que
+   this->TotalPhysicalMemory = 0;
+   this->AvailableVirtualMemory = 0;
+   this->AvailablePhysicalMemory = 0;
+-#ifdef __CYGWIN__
+-  return 0;
+-#elif defined(_WIN32)
++#if defined(_WIN32) && !defined(__CYGWIN__)
+ #if  _MSC_VER < 1300
+   MEMORYSTATUS ms;
+   unsigned long tv, tp, av, ap;
+@@ -2556,6 +2554,48 @@ int SystemInformationImplementation::Que
+       }
+     }
+   return 0;
++#elif defined(__CYGWIN__)
++  char buffer[1024]; // for reading lines
++
++  FILE *fd = fopen("/proc/meminfo", "r" );
++  if ( !fd ) 
++    {
++    kwsys_ios::cout << "Problem opening /proc/meminfo" << kwsys_ios::endl;
++    return 0;
++    }
++
++  enum { mMemTotal, mMemFree, mSwapTotal, mSwapFree };
++  const char* format[4] =
++    { "MemTotal:%lu kB", "MemFree:%lu kB", "SwapTotal:%lu kB", "SwapFree:%lu kB" };
++  bool have[4] = { false, false, false, false };
++  unsigned long value[4];
++  int count = 0;
++  while(fgets(buffer, sizeof(buffer), fd))
++    {
++    for(int i=0; i < 4; ++i)
++      {
++      if(!have[i] && sscanf(buffer, format[i], &value[i]) == 1)
++        {
++        have[i] = true;
++        ++count;
++        }
++      }
++    }
++  if(count == 4)
++    {
++    this->TotalPhysicalMemory = value[mMemTotal] / 1024;
++    this->AvailablePhysicalMemory = value[mMemFree] / 1024;
++    this->TotalVirtualMemory = value[mSwapTotal] / 1024;
++    this->AvailableVirtualMemory = value[mSwapFree] / 1024;
++    }
++  else
++    {
++    kwsys_ios::cout << "Problem parsing /proc/meminfo" << kwsys_ios::endl;
++    fclose(fd);
++    return 0;
++    }
++  fclose( fd );
++  return 1;
+ #else
+   return 0;
+ #endif
+--- origsrc/cmake-2.8.10/Source/kwsys/SystemTools.cxx	2012-10-31 10:32:06.000000000 -0500
++++ src/cmake-2.8.10/Source/kwsys/SystemTools.cxx	2013-03-16 22:52:11.830415600 -0500
+@@ -75,19 +75,12 @@
+ // Windows API.
+ #if defined(_WIN32)
+ # include <windows.h>
+-#elif defined (__CYGWIN__)
+-# include <windows.h>
+-# undef _WIN32
+ #endif
+ 
+ #if !KWSYS_CXX_HAS_ENVIRON_IN_STDLIB_H
+ extern char **environ;
+ #endif
+ 
+-#ifdef __CYGWIN__
+-extern "C" void cygwin_conv_to_win32_path(const char *path, char *win32_path);
+-#endif
+-
+ // getpwnam doesn't exist on Windows and Cray Xt3/Catamount
+ // same for TIOCGWINSZ
+ #if defined(_WIN32) || defined (__LIBCATAMOUNT__)
+@@ -1068,7 +1061,7 @@ bool SystemTools::SameFile(const char* f
+ }
+ 
+ //----------------------------------------------------------------------------
+-#if defined(_WIN32) || defined(__CYGWIN__)
++#if defined(_WIN32)
+ static bool WindowsFileExists(const char* filename)
+ {
+   WIN32_FILE_ATTRIBUTE_DATA fd;
+@@ -1083,7 +1076,7 @@ bool SystemTools::FileExists(const char*
+     {
+     return false;
+     }
+-#if defined(__CYGWIN__)
++#if 0
+   // Convert filename to native windows path if possible.
+   char winpath[MAX_PATH];
+   if(SystemTools::PathCygwinToWin32(filename, winpath))
+@@ -1111,7 +1104,7 @@ bool SystemTools::FileExists(const char*
+ }
+ 
+ //----------------------------------------------------------------------------
+-#ifdef __CYGWIN__
++#if 0
+ bool SystemTools::PathCygwinToWin32(const char *path, char *win32_path)
+ {
+   SystemToolsTranslationMap::iterator i =
+@@ -3894,7 +3887,7 @@ bool SystemTools::LocateFileInDir(const
+ bool SystemTools::FileIsFullPath(const char* in_name)
+ {
+   kwsys_stl::string name = in_name;
+-#if defined(_WIN32) || defined(__CYGWIN__)
++#if defined(_WIN32)
+   // On Windows, the name must be at least two characters long.
+   if(name.length() < 2)
+     {
+@@ -4712,9 +4705,6 @@ bool SystemTools::ParseURL( const kwsys_
+ unsigned int SystemToolsManagerCount;
+ SystemToolsTranslationMap *SystemTools::TranslationMap;
+ SystemToolsTranslationMap *SystemTools::LongPathMap;
+-#ifdef __CYGWIN__
+-SystemToolsTranslationMap *SystemTools::Cyg2Win32Map;
+-#endif
+ 
+ // SystemToolsManager manages the SystemTools singleton.
+ // SystemToolsManager should be included in any translation unit
+@@ -4760,9 +4750,6 @@ void SystemTools::ClassInitialize()
+   // Allocate the translation map first.
+   SystemTools::TranslationMap = new SystemToolsTranslationMap;
+   SystemTools::LongPathMap = new SystemToolsTranslationMap;
+-#ifdef __CYGWIN__
+-  SystemTools::Cyg2Win32Map = new SystemToolsTranslationMap;
+-#endif
+ 
+   // Add some special translation paths for unix.  These are not added
+   // for windows because drive letters need to be maintained.  Also,
+@@ -4817,9 +4804,6 @@ void SystemTools::ClassFinalize()
+ {
+   delete SystemTools::TranslationMap;
+   delete SystemTools::LongPathMap;
+-#ifdef __CYGWIN__
+-  delete SystemTools::Cyg2Win32Map;
+-#endif
+ }
+ 
+ 
+--- origsrc/cmake-2.8.10/Source/kwsys/SystemTools.hxx.in	2012-10-31 10:32:06.000000000 -0500
++++ src/cmake-2.8.10/Source/kwsys/SystemTools.hxx.in	2013-03-16 23:10:30.185237900 -0500
+@@ -277,15 +277,6 @@ public:
+   static bool FileExists(const char* filename);
+ 
+   /**
+-   * Converts Cygwin path to Win32 path. Uses dictionary container for
+-   * caching and calls to cygwin_conv_to_win32_path from Cygwin dll
+-   * for actual translation.  Returns true on success, else false.
+-   */
+-#ifdef __CYGWIN__
+-  static bool PathCygwinToWin32(const char *path, char *win32_path);
+-#endif
+-
+-  /**
+    * Return file length
+    */
+   static unsigned long FileLength(const char *filename);
+@@ -887,9 +878,6 @@ private:
+    */
+   static SystemToolsTranslationMap *TranslationMap;
+   static SystemToolsTranslationMap *LongPathMap;
+-#ifdef __CYGWIN__
+-  static SystemToolsTranslationMap *Cyg2Win32Map;
+-#endif
+   friend class SystemToolsManager;
+ };
+ 

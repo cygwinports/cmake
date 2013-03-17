@@ -1,5 +1,8 @@
-inherit emacs vim qt4
+inherit emacs vim ${ARCH_i686+qt4}
 
+NAME="cmake"
+VERSION=2.8.10
+RELEASE=2
 CATEGORY="Devel"
 SUMMARY="Cross-platform makefile generation system"
 DESCRIPTION="CMake is used to control the software compilation process using
@@ -14,13 +17,11 @@ SRC_URI="
 	mirror://portage/dev-util/${PN}/files/${PN}.vim
 "
 
-#2.8.8-cygwin.patch
-PATCH_URI="
+PATCH_URI="2.8.10-cygwin.patch
            2.8.9-perl-libs.patch
            2.8.9-ruby19.patch"
 
-PKG_NAMES="${PN} ${PN}-gui emacs-cmake vim-cmake"
-PKG_HINTS="setup gui emacs vim"
+PKG_NAMES="${PN} ${ARCH_i686+${PN}-gui} emacs-cmake vim-cmake"
 cmake_CONTENTS="--exclude=cmake-gui.* usr/bin/ usr/share/aclocal/ usr/share/cmake*/
                 usr/share/doc/ usr/share/man/"
 cmake_gui_SUMMARY="${SUMMARY} (GUI)"
@@ -44,7 +45,7 @@ src_compile() {
 		--datadir=/share/${P} \
 		--docdir=/share/doc/${PN} \
 		--mandir=/share/man \
-		--qt-gui --qt-qmake=${QT4_QMAKE} \
+		${ARCH_i686+--qt-gui --qt-qmake=${QT4_QMAKE}} \
 		--system-libs \
 		|| error "bootstrap failed"
 	cygmake
