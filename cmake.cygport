@@ -1,8 +1,8 @@
-inherit emacs vim ${ARCH_i686+qt4}
+inherit emacs qt4
 
 NAME="cmake"
-VERSION=2.8.10
-RELEASE=2
+VERSION=2.8.11
+RELEASE=1
 CATEGORY="Devel"
 SUMMARY="Cross-platform makefile generation system"
 DESCRIPTION="CMake is used to control the software compilation process using
@@ -12,40 +12,34 @@ of your choice. CMake is quite sophisticated: it is possible to support
 complex environments requiring system configuration, pre-processor generation,
 code generation, and template instantiation."
 HOMEPAGE="http://www.cmake.org/"
-SRC_URI="
-	http://www.cmake.org/files/v${PV_MAJ_MIN}/${P}.tar.gz
-	mirror://portage/dev-util/${PN}/files/${PN}.vim
-"
+SRC_URI="http://www.cmake.org/files/v${VERSION%.*}/cmake-${VERSION}.tar.gz"
 
-PATCH_URI="2.8.10-cygwin.patch
+PATCH_URI="2.8.11-cygwin.patch
            2.8.9-perl-libs.patch
            2.8.9-ruby19.patch"
 
-PKG_NAMES="${PN} ${ARCH_i686+${PN}-gui} emacs-cmake vim-cmake"
+PKG_NAMES="${NAME} ${NAME}-gui emacs-cmake"
 cmake_CONTENTS="--exclude=cmake-gui.* usr/bin/ usr/share/aclocal/ usr/share/cmake*/
                 usr/share/doc/ usr/share/man/"
 cmake_gui_SUMMARY="${SUMMARY} (GUI)"
-cmake_gui_REQUIRES=${PN}
+cmake_gui_REQUIRES=${NAME}
 cmake_gui_CONTENTS="etc/ usr/bin/cmake-gui.exe usr/share/applications/
-                    usr/share/doc/${PN}/cmake-gui.* usr/share/man/man1/cmake-gui.*
+                    usr/share/doc/${NAME}/cmake-gui.* usr/share/man/man1/cmake-gui.*
                     usr/share/mime/ usr/share/pixmaps/"
 emacs_cmake_CATEGORY="Editors"
 emacs_cmake_SUMMARY="${SUMMARY} (Emacs mode)"
-emacs_cmake_REQUIRES=${PN}
+emacs_cmake_REQUIRES=${NAME}
 emacs_cmake_CONTENTS="usr/share/emacs/"
-vim_cmake_CATEGORY="Editors"
-vim_cmake_SUMMARY="${SUMMARY} (Vim scripts)"
-vim_cmake_CONTENTS="usr/share/vim/"
 
 src_compile() {
 	cd ${B}
 	export CC CXX
 	${S}/bootstrap \
 		--prefix=/usr \
-		--datadir=/share/${P} \
-		--docdir=/share/doc/${PN} \
+		--datadir=/share/${NAME}-${VERSION} \
+		--docdir=/share/doc/${NAME} \
 		--mandir=/share/man \
-		${ARCH_i686+--qt-gui --qt-qmake=${QT4_QMAKE}} \
+		--qt-gui --qt-qmake=${QT4_QMAKE} \
 		--system-libs \
 		|| error "bootstrap failed"
 	cygmake
@@ -54,16 +48,7 @@ src_compile() {
 src_install() {
 	cd ${B}
 	cyginstall
-	mv ${D}/usr/share/doc/${P} ${D}/usr/share/doc/${PN}
+	mv ${D}/usr/share/doc/${NAME}-${VERSION} ${D}/usr/share/doc/${NAME}
 
 	doemacs ${S}/Docs/cmake-mode.el
-
-	viminto syntax
-	dovim ${S}/Docs/cmake-syntax.vim
-
-	viminto indent
-	dovim ${S}/Docs/cmake-indent.vim
-
-	viminto ftdetect
-	dovim ${S}/${PN}.vim
 }
