@@ -1,7 +1,7 @@
 inherit emacs qt4
 
 NAME="cmake"
-VERSION=2.8.11
+VERSION=2.8.11.2
 RELEASE=1
 CATEGORY="Devel"
 SUMMARY="Cross-platform makefile generation system"
@@ -12,7 +12,7 @@ of your choice. CMake is quite sophisticated: it is possible to support
 complex environments requiring system configuration, pre-processor generation,
 code generation, and template instantiation."
 HOMEPAGE="http://www.cmake.org/"
-SRC_URI="http://www.cmake.org/files/v${VERSION%.*}/cmake-${VERSION}.tar.gz"
+SRC_URI="http://www.cmake.org/files/v2.8/cmake-${VERSION}.tar.gz"
 
 PATCH_URI="2.8.11-cygwin.patch
            2.8.9-perl-libs.patch
