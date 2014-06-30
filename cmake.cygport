@@ -1,7 +1,7 @@
 inherit emacs qt4
 
 NAME="cmake"
-VERSION=2.8.11.2
+VERSION=2.8.12.2
 RELEASE=1
 CATEGORY="Devel"
 SUMMARY="Cross-platform makefile generation system"
@@ -14,9 +14,13 @@ code generation, and template instantiation."
 HOMEPAGE="http://www.cmake.org/"
 SRC_URI="http://www.cmake.org/files/v2.8/cmake-${VERSION}.tar.gz"
 
-PATCH_URI="2.8.11-cygwin.patch
-           2.8.9-perl-libs.patch
-           2.8.9-ruby19.patch"
+PATCH_URI="
+	http://pkgs.fedoraproject.org/cgit/cmake.git/plain/cmake-FindFreetype.patch?h=f20
+	2.8.11-cygwin.patch
+	2.8.9-perl-libs.patch
+	2.8.9-ruby19.patch
+	2.8.12-gui-qt4.patch
+"
 
 PKG_NAMES="${NAME} ${NAME}-gui emacs-cmake"
 cmake_CONTENTS="--exclude=cmake-gui.* usr/bin/ usr/share/aclocal/ usr/share/cmake*/
@@ -39,6 +43,7 @@ src_compile() {
 		--datadir=/share/${NAME}-${VERSION} \
 		--docdir=/share/doc/${NAME} \
 		--mandir=/share/man \
+		--parallel=$(nproc) \
 		--qt-gui --qt-qmake=${QT4_QMAKE} \
 		--system-libs \
 		|| error "bootstrap failed"
