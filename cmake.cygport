@@ -2,7 +2,7 @@ inherit emacs qt4
 
 NAME="cmake"
 VERSION=2.8.12.2
-RELEASE=1
+RELEASE=2
 CATEGORY="Devel"
 SUMMARY="Cross-platform makefile generation system"
 DESCRIPTION="CMake is used to control the software compilation process using
@@ -18,8 +18,8 @@ PATCH_URI="
 	http://pkgs.fedoraproject.org/cgit/cmake.git/plain/cmake-FindFreetype.patch?h=f20
 	2.8.11-cygwin.patch
 	2.8.9-perl-libs.patch
-	2.8.9-ruby19.patch
 	2.8.12-gui-qt4.patch
+	2.8.12-ruby.patch
 "
 
 PKG_NAMES="${NAME} ${NAME}-gui emacs-cmake"
