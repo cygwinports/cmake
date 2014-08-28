@@ -1,0 +1,20 @@
+--- origsrc/cmake-2.8.12.2/Modules/FindOpenGL.cmake	2014-01-16 11:15:08.000000000 -0600
++++ src/cmake-2.8.12.2/Modules/FindOpenGL.cmake	2014-08-28 10:40:47.744862100 -0500
+@@ -30,16 +30,7 @@
+ 
+ set(_OpenGL_REQUIRED_VARS OPENGL_gl_LIBRARY)
+ 
+-if (CYGWIN)
+-
+-  find_path(OPENGL_INCLUDE_DIR GL/gl.h )
+-  list(APPEND _OpenGL_REQUIRED_VARS OPENGL_INCLUDE_DIR)
+-
+-  find_library(OPENGL_gl_LIBRARY opengl32 )
+-
+-  find_library(OPENGL_glu_LIBRARY glu32 )
+-
+-elseif (WIN32)
++if (WIN32)
+ 
+   if(BORLAND)
+     set (OPENGL_gl_LIBRARY import32 CACHE STRING "OpenGL library for win32")

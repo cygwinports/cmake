@@ -2,7 +2,7 @@ inherit emacs qt4
 
 NAME="cmake"
 VERSION=2.8.12.2
-RELEASE=2
+RELEASE=3
 CATEGORY="Devel"
 SUMMARY="Cross-platform makefile generation system"
 DESCRIPTION="CMake is used to control the software compilation process using
@@ -20,6 +20,8 @@ PATCH_URI="
 	2.8.9-perl-libs.patch
 	2.8.12-gui-qt4.patch
 	2.8.12-ruby.patch
+	2.8.12-opengl.patch
+	2.8.12-tclsh.patch
 "
 
 PKG_NAMES="${NAME} ${NAME}-gui emacs-cmake"
