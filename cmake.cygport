@@ -1,7 +1,7 @@
-inherit emacs qt4
+inherit emacs qt5
 
 NAME="cmake"
-VERSION=3.1.2
+VERSION=3.2.2
 RELEASE=1
 CATEGORY="Devel"
 SUMMARY="Cross-platform makefile generation system"
@@ -12,14 +12,13 @@ of your choice. CMake is quite sophisticated: it is possible to support
 complex environments requiring system configuration, pre-processor generation,
 code generation, and template instantiation."
 HOMEPAGE="http://www.cmake.org/"
-SRC_URI="http://www.cmake.org/files/v3.1/cmake-${VERSION}.tar.gz"
+SRC_URI="http://www.cmake.org/files/v3.2/cmake-${VERSION}.tar.gz"
 
 PATCH_URI="
 	3.1.0-case-sensitivity.patch
 	3.1.0-cpuinfo.patch
 	3.1.0-cygwin-paths.patch
 	2.8.9-perl-libs.patch
-	2.8.12-gui-qt4.patch
 	2.8.12-ruby.patch
 	2.8.12-opengl.patch
 	3.0.2-tclsh.patch
@@ -33,7 +32,7 @@ cmake_gui_REQUIRES=${NAME}
 cmake_gui_CONTENTS="etc/ usr/bin/cmake-gui.exe usr/share/applications/
                     usr/share/man/man1/cmake-gui.*
                     usr/share/cmake*/Help/manual/cmake-gui.1.rst
-                    usr/share/mime/ usr/share/pixmaps/"
+                    usr/share/icons/ usr/share/mime/"
 cmake_doc_SUMMARY="${SUMMARY} (documentation)"
 cmake_doc_CONTENTS="usr/share/doc/"
 emacs_cmake_CATEGORY="Editors"
@@ -49,8 +48,8 @@ src_compile() {
 		--datadir=/share/${NAME}-${VERSION} \
 		--docdir=/share/doc/${NAME} \
 		--mandir=/share/man \
-		--qt-gui --qt-qmake=${QT4_QMAKE} \
-		--system-libs \
+		--qt-gui --qt-qmake=${QT5_QMAKE} \
+		--system-libs --no-system-jsoncpp \
 		--sphinx-man --sphinx-html \
 		|| error "bootstrap failed"
 	cygmake
