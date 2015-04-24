@@ -1,11 +1,11 @@
---- origsrc/cmake-2.8.12.2/Modules/FindTclsh.cmake	2014-01-16 11:15:08.000000000 -0600
-+++ src/cmake-2.8.12.2/Modules/FindTclsh.cmake	2014-08-28 10:52:09.470930300 -0500
+--- origsrc/cmake-3.0.2/Modules/FindTclsh.cmake	2014-01-16 11:15:08.000000000 -0600
++++ src/cmake-3.0.2/Modules/FindTclsh.cmake	2014-08-28 10:52:09.470930300 -0500
 @@ -4,8 +4,6 @@
- # the library is. This code sets the following variables:
- #  TCLSH_FOUND = TRUE if tclsh has been found
- #  TCL_TCLSH = the path to the tclsh executable
--# In cygwin, look for the cygwin version first.  Don't look for it later to
--# avoid finding the cygwin version on a Win32 build.
+ #   TCLSH_FOUND = TRUE if tclsh has been found
+ #   TCL_TCLSH = the path to the tclsh executable
+ #
+-# In cygwin, look for the cygwin version first.  Don't look for it later
+-# to avoid finding the cygwin version on a Win32 build.
  
  #=============================================================================
  # Copyright 2001-2009 Kitware, Inc.

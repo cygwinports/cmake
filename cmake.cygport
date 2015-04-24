@@ -1,8 +1,8 @@
 inherit emacs qt4
 
 NAME="cmake"
-VERSION=2.8.12.2
-RELEASE=3
+VERSION=3.1.2
+RELEASE=1
 CATEGORY="Devel"
 SUMMARY="Cross-platform makefile generation system"
 DESCRIPTION="CMake is used to control the software compilation process using
@@ -12,26 +12,30 @@ of your choice. CMake is quite sophisticated: it is possible to support
 complex environments requiring system configuration, pre-processor generation,
 code generation, and template instantiation."
 HOMEPAGE="http://www.cmake.org/"
-SRC_URI="http://www.cmake.org/files/v2.8/cmake-${VERSION}.tar.gz"
+SRC_URI="http://www.cmake.org/files/v3.1/cmake-${VERSION}.tar.gz"
 
 PATCH_URI="
-	http://pkgs.fedoraproject.org/cgit/cmake.git/plain/cmake-FindFreetype.patch?h=f20
-	2.8.11-cygwin.patch
+	3.1.0-case-sensitivity.patch
+	3.1.0-cpuinfo.patch
+	3.1.0-cygwin-paths.patch
 	2.8.9-perl-libs.patch
 	2.8.12-gui-qt4.patch
 	2.8.12-ruby.patch
 	2.8.12-opengl.patch
-	2.8.12-tclsh.patch
+	3.0.2-tclsh.patch
 "
 
-PKG_NAMES="${NAME} ${NAME}-gui emacs-cmake"
-cmake_CONTENTS="--exclude=cmake-gui.* usr/bin/ usr/share/aclocal/ usr/share/cmake*/
-                usr/share/doc/ usr/share/man/"
+PKG_NAMES="${NAME} ${NAME}-gui ${NAME}-doc emacs-cmake"
+cmake_CONTENTS="--exclude=cmake-gui.* usr/bin/ usr/share/aclocal/
+                usr/share/cmake*/ usr/share/man/"
 cmake_gui_SUMMARY="${SUMMARY} (GUI)"
 cmake_gui_REQUIRES=${NAME}
 cmake_gui_CONTENTS="etc/ usr/bin/cmake-gui.exe usr/share/applications/
-                    usr/share/doc/${NAME}/cmake-gui.* usr/share/man/man1/cmake-gui.*
+                    usr/share/man/man1/cmake-gui.*
+                    usr/share/cmake*/Help/manual/cmake-gui.1.rst
                     usr/share/mime/ usr/share/pixmaps/"
+cmake_doc_SUMMARY="${SUMMARY} (documentation)"
+cmake_doc_CONTENTS="usr/share/doc/"
 emacs_cmake_CATEGORY="Editors"
 emacs_cmake_SUMMARY="${SUMMARY} (Emacs mode)"
 emacs_cmake_REQUIRES=${NAME}
@@ -45,9 +49,9 @@ src_compile() {
 		--datadir=/share/${NAME}-${VERSION} \
 		--docdir=/share/doc/${NAME} \
 		--mandir=/share/man \
-		--parallel=$(nproc) \
 		--qt-gui --qt-qmake=${QT4_QMAKE} \
 		--system-libs \
+		--sphinx-man --sphinx-html \
 		|| error "bootstrap failed"
 	cygmake
 }
@@ -55,7 +59,6 @@ src_compile() {
 src_install() {
 	cd ${B}
 	cyginstall
-	mv ${D}/usr/share/doc/${NAME}-${VERSION} ${D}/usr/share/doc/${NAME}
 
-	doemacs ${S}/Docs/cmake-mode.el
+	doemacs ${D}/usr/share/${NAME}-${VERSION}/editors/emacs/cmake-mode.el
 }
