@@ -1,0 +1,11 @@
+--- origsrc/cmake-3.2.3/Modules/GenerateExportHeader.cmake	2015-06-01 10:56:08.000000000 -0500
++++ src/cmake-3.2.3/Modules/GenerateExportHeader.cmake	2015-07-21 17:03:05.027228100 -0500
+@@ -268,7 +268,7 @@ macro(_DO_SET_MACRO_VALUES TARGET_LIBRAR
+   get_property(type TARGET ${TARGET_LIBRARY} PROPERTY TYPE)
+ 
+   if(NOT ${type} STREQUAL "STATIC_LIBRARY")
+-    if(WIN32)
++    if(WIN32 OR CYGWIN)
+       set(DEFINE_EXPORT "__declspec(dllexport)")
+       set(DEFINE_IMPORT "__declspec(dllimport)")
+     elseif(COMPILER_HAS_HIDDEN_VISIBILITY AND USE_COMPILER_HIDDEN_VISIBILITY)
